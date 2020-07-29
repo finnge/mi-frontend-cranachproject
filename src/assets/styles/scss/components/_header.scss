@@ -1,0 +1,21 @@
+.page-header {
+    background-color: $background-color;
+    border-bottom: $border-width solid $darkest;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+        max-width: $content-width;
+        padding: $m 0;
+    }
+
+    &__title {
+        @include typo-header2;
+    }
+}

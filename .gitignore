@@ -111,10 +111,4 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-### Sass ###
-.sass-cache/
-*.css.map
-*.sass.map
-*.scss.map
-
-# End of https://www.toptal.com/developers/gitignore/api/node,sass
+# End of https://www.toptal.com/developers/gitignore/api/node

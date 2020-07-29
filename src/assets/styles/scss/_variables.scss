@@ -1,0 +1,74 @@
+/**
+ * Sizes
+ * Renard-Serie (10)
+ */
+$basesize: 10px;
+
+$xxs: 1 * $basesize;
+$xs: 1.25 * $basesize;
+$s: 1.6 * $basesize;
+$m: 2 * $basesize;
+$l: 2.5 * $basesize;
+$xl: 3.15 * $basesize;
+$xxl: 6 * $basesize;
+
+/**
+ * Font
+ */
+$font-family-sans: 'Source Sans Pro', sans-serif;
+$base-font-size: $s;
+
+// Font Weight
+$fw-normal: 400;
+$fw-bold: 700;
+
+// Line Height
+$lh-tight: 110%;
+$lh-default: 130%;
+$lh-loose: 150%;
+
+/**
+ * Color
+ */
+$c-prim: #fecb2f;
+
+$c-sec-1: #f2f2f2;
+$c-sec-2: #f0f0f0;
+$c-sec-3: #ddd;
+$c-sec-4: #b4b4b4;
+$c-sec-5: #444;
+$c-sec-6: #222;
+$c-sec-7: #000321;
+
+// base
+$darkest: $c-sec-5;
+$darken: rgba(0, 0, 0, 0.05);
+
+$lightest: #fff;
+$lighten: rgba(255, 255, 255, 0.1);
+$lighten-strong: rgba(255, 255, 255, 0.6);
+
+// functional
+$text-color: $darkest;
+$background-color: $lightest;
+$interaction-color: $c-prim;
+$interaction-color-pressed: darken($c-prim, 0.05);
+
+/**
+ * Transitions
+ */
+$tr-fast: 120ms;
+$tr-medium: 200ms;
+$tr-slow: 750ms;
+
+$tr-easeinoutquart: cubic-bezier(0.77, 0, 0.175, 1);
+
+/**
+ * Viewports
+ */
+
+/**
+ * Misc
+ */
+$content-width: 940px;
+$border-width: 1px;
