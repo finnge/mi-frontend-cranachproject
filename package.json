@@ -1,0 +1,31 @@
+{
+  "name": "fd-miniprojekt-finnge",
+  "version": "1.0.0",
+  "description": "Projektprüfung im Kurs \"Frontend Development\" des Schwerpunktmoduls Web-Development im Studiengang Medieninformatik (Ba.) an der TH Köln (SS 2020)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mi-classroom/miniprojekt-finnge.git"
+  },
+  "keywords": [
+    "cranach",
+    "frontend"
+  ],
+  "author": "Finn Nils Gedrath",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mi-classroom/miniprojekt-finnge/issues"
+  },
+  "homepage": "https://github.com/mi-classroom/miniprojekt-finnge#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "csscomb": "^4.3.0",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-vue": "^6.2.2"
+  }
+}
