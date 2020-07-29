@@ -23,13 +23,13 @@
     "url": "https://github.com/mi-classroom/miniprojekt-finnge/issues"
   },
   "homepage": "https://github.com/mi-classroom/miniprojekt-finnge#readme",
-  "dependencies": {},
   "devDependencies": {
     "csscomb": "^4.3.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-vue": "^6.2.2",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "node-sass": "^4.14.1"
   }
 }
