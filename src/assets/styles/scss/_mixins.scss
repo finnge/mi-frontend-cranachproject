@@ -1,0 +1,35 @@
+@mixin typo_header1 {
+    font-weight: $fw-bold;
+    font-size: $xxl;
+    line-height: $lh-tight;
+}
+
+@mixin typo_header2 {
+    font-weight: $fw-bold;
+    font-size: $xl;
+    line-height: $lh-tight;
+}
+
+@mixin typo_title {
+    font-weight: $fw-bold;
+    font-size: $l;
+    line-height: $lh-tight;
+}
+
+@mixin typo_title2 {
+    font-weight: $fw-bold;
+    font-size: $l;
+    line-height: $lh-tight;
+}
+
+@mixin typo_text {
+    font-weight: $fw-normal;
+    font-size: $base-font-size;
+    line-height: $lh-default;
+}
+
+@mixin typo_meta {
+    font-weight: $fw-bold;
+    font-size: $xxs;
+    line-height: $lh-default;
+}

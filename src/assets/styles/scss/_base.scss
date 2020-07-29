@@ -1,0 +1,16 @@
+* {
+    box-sizing: content-box;
+}
+
+body {
+    background-color: $background-color;
+    color: $text-color;
+    hyphens: auto;
+    font-weight: $fw-normal;
+    font-size: $base-font-size;
+    font-family: $font-family-sans;
+}
+
+// typography
+line-height: $lh-tight;
+}
