@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const config = {
     path: {
-        templates: (file) => `src/assets/templates/${file}.mustache.html`,
+        templates: (file) => `src/templates/${file}.mustache.html`,
         data: (file) => `src/data/${file}.json`,
     },
 };
