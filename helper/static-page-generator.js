@@ -57,4 +57,32 @@ origData.de.forEach((artefactDE) => {
     }
 });
 
-console.log(periods);
+// sort
+periods.sort((a, b) => a.period - b.period);
+
+periods.forEach((period) => {
+    period.artefacts.sort((a, b) => {
+        let i = 0;
+
+        while (a.sortingNumber[i] !== undefined || b.sortingNumber[i] !== undefined) {
+            if (a.sortingNumber[i] > b.sortingNumber[i]) {
+                return 1;
+            }
+            if (a.sortingNumber[i] < b.sortingNumber[i]) {
+                return -1;
+            }
+
+            i += 1;
+        }
+
+        if (a.sortingNumber[i] === undefined && b.sortingNumber[i] !== undefined) {
+            return 1;
+        }
+        if (a.sortingNumber[i] !== undefined && b.sortingNumber[i] === undefined) {
+            return -1;
+        }
+        return 0;
+    });
+});
+
+fs.writeFileSync('test.json', JSON.stringify(periods));
