@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="assets/styles/main.css" rel="stylesheet">
+        <link href="src/assets/styles/main.css" rel="stylesheet">
         <link
             href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&family=Material+Icons&display=swap"
             rel="stylesheet">
@@ -24,20 +24,27 @@
             </div>
         </header>
 
+        {{#periods}}
+
         <section class="period">
             <header class="period-header">
-                <h2 class="period-header__year">1502</h2>
-                <span class="period-header__meta">12</span>
+                <h2 class="period-header__year">{{period}}</h2>
+                <span class="period-header__meta">{{artefacts.length}}</span>
                 <span class="period-header__icon">expand_less</span>
             </header>
 
             <ul class="period-list">
+
+                {{#artefacts}}
                 <li class="period-list__item">
-                    <img src="http://lucascranach.org/imageserver/CH_SORW_1925-1b_FR006/pyramid/CH_SORW_1925-1b_FR006_image-date-unknown_Detail-004-s.jpg"
+                    <img src="{{ images.sizes.s.src }}"
                         alt="Title" class="artefact">
                 </li>
+                {{/artefacts}}
             </ul>
         </section>
+
+        {{/periods}}
     </body>
 
 </html>

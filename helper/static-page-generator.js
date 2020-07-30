@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-const mustache = require('mustache');
+const Mustache = require('mustache');
 const fs = require('fs');
 
 const config = {
@@ -50,6 +50,7 @@ origData.de.forEach((artefactDE) => {
     if (periodIndex < 0) {
         periods.push({
             period: artefact.sortingNumber[0],
+            number: () => this.artefacts.length,
             artefacts: [artefact],
         });
     } else {
@@ -60,7 +61,7 @@ origData.de.forEach((artefactDE) => {
 // sort
 periods.sort((a, b) => a.period - b.period);
 
-periods.forEach((period) => {
+periods.forEach((period, index) => {
     period.artefacts.sort((a, b) => {
         let i = 0;
 
@@ -85,4 +86,12 @@ periods.forEach((period) => {
     });
 });
 
-fs.writeFileSync('test.json', JSON.stringify(periods));
+// templating
+const template = {
+    index: fs.readFileSync(config.path.templates('index')).toString(),
+};
+
+const output = Mustache.render(template.index, { periods });
+
+// printing
+fs.writeFileSync('index.html', output);
