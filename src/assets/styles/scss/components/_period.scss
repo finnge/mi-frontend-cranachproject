@@ -1,78 +1,7 @@
+// Parent
 .period {
     margin: 0 auto;
     max-width: $content-width;
-
-    &-header {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-        margin: $xl 0;
-
-        &__year {
-            @include typo-header1;
-            margin-right: $l;
-            order: 0;
-        }
-
-        &__meta {
-            @include typo-meta;
-            align-items: center;
-            color: $c-sec-4;
-            display: flex;
-            margin: 0 $l;
-            order: 3;
-
-            &::before {
-                @include material-icon;
-                content: 'image';
-                display: inline-block;
-                font-size: $l;
-                margin-right: $xxs;
-            }
-        }
-
-        &__icon {
-            @include material-icon;
-            font-size: $xl;
-            margin-left: $l;
-            order: 4;
-        }
-
-        &::before,
-        &::after {
-            border-bottom: 1px solid $c-sec-4;
-            content: '';
-            display: block;
-            width: 100%;
-        }
-
-        &::before {
-            order: 1;
-        }
-
-        &::after {
-            order: 3;
-        }
-    }
-
-    &-list {
-        display: grid;
-        grid-auto-flow: row;
-        grid-auto-rows: 1fr;
-        grid-column-gap: $m;
-        grid-row-gap: $m;
-        grid-template-columns: repeat(6, 1fr);
-
-        &__item {
-            position: relative;
-            
-            &::before {
-                content: '';
-                display: block;
-                padding-bottom: 100%;
-            }
-        }
-    }
 
     &:first-of-type {
         margin-top: $m * 2 + $xl + $border-width + $xxl;
@@ -80,6 +9,80 @@
 
     &:last-of-type {
         margin-bottom: $xxl;
+    }
+}
+
+// Header
+.period-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: $xl 0;
+
+    &__year {
+        @include typo-header1;
+        margin-right: $l;
+        order: 0;
+    }
+
+    &__meta {
+        @include typo-meta;
+        align-items: center;
+        color: $c-sec-4;
+        display: flex;
+        margin: 0 $l;
+        order: 3;
+
+        &::before {
+            @include material-icon;
+            content: 'image';
+            display: inline-block;
+            font-size: $l;
+            margin-right: $xxs;
+        }
+    }
+
+    &__icon {
+        @include material-icon;
+        font-size: $xl;
+        margin-left: $l;
+        order: 4;
+    }
+
+    &::before,
+    &::after {
+        border-bottom: 1px solid $c-sec-4;
+        content: '';
+        display: block;
+        width: 100%;
+    }
+
+    &::before {
+        order: 1;
+    }
+
+    &::after {
+        order: 3;
+    }
+}
+
+// List
+.period-list {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 1fr;
+    grid-column-gap: $m;
+    grid-row-gap: $m;
+    grid-template-columns: repeat(6, 1fr);
+
+    &__item {
+        position: relative;
+        
+        &::before {
+            content: '';
+            display: block;
+            padding-bottom: 100%;
+        }
     }
 }
 
