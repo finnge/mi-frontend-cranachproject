@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const mustache = require('mustache');
 const fs = require('fs');
 
@@ -14,21 +15,46 @@ const origData = {
 };
 
 // merging the languages
-const data = [];
+const periods = [];
 
-origData.de.forEach((artefactDE, index) => {
+origData.de.forEach((artefactDE) => {
     const artefactEN = origData.en.find((el) => el.objectId === artefactDE.objectId);
+
+    // Create single artefact
     const artefact = {};
 
-    artefact.objectName = artefactDE.objectName;
-    artefact.objectId = artefactDE.objectId;
-    artefact.inventoryNumber = artefactDE.inventoryNumber;
-    artefact.sortingNumber = artefactDE.sortingNumber;
-    artefact.isBestOf = artefactDE.isBestOf;
-    artefact.images = artefactDE.images;
-    artefact.period = artefactDE.dating.begin;
+    const singleKeys = [
+        'objectName',
+        'objectId',
+        'inventoryNumber',
+        'sortingNumber',
+        'isBestOf',
+        'images',
+    ];
 
-    data.push(artefact);
+    singleKeys.forEach((key) => {
+        artefact[key] = artefactDE[key];
+
+        delete artefactDE[key];
+        delete artefactEN[key];
+    });
+
+    artefact.sortingNumber = artefact.sortingNumber.split('-');
+
+    artefact.de = artefactDE;
+    artefact.en = artefactEN;
+
+    // add to period
+    const periodIndex = periods.findIndex((el) => el.period === artefact.sortingNumber[0]);
+
+    if (periodIndex < 0) {
+        periods.push({
+            period: artefact.sortingNumber[0],
+            artefacts: [artefact],
+        });
+    } else {
+        periods[periodIndex].artefacts.push(artefact);
+    }
 });
 
-console.log(data);
+console.log(periods);
