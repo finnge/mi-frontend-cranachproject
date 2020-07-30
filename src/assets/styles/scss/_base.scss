@@ -3,14 +3,14 @@
 }
 
 body {
+    background-color: $background-color;
+
+    color: $text-color;
     font-family: $font-family-sans;
     font-size: $base-font-size;
     font-weight: $fw-normal;
 
     hyphens: auto;
-
-    color: $text-color;
-    background-color: $background-color;
 }
 
 // typography
