@@ -16,13 +16,24 @@
 
         &__meta {
             @include typo-meta;
+            align-items: center;
             color: $c-sec-4;
+            display: flex;
             margin: 0 $l;
             order: 3;
+
+            &::before {
+                @include material-icon;
+                content: 'image';
+                display: inline-block;
+                font-size: $l;
+                margin-right: $xxs;
+            }
         }
 
         &__icon {
-            @include typo-title2;
+            @include material-icon;
+            font-size: $xl;
             margin-left: $l;
             order: 4;
         }
@@ -66,6 +77,7 @@
     &:first-of-type {
         margin-top: $m * 2 + $xl + $border-width + $xxl;
     }
+
     &:last-of-type {
         margin-bottom: $xxl;
     }
