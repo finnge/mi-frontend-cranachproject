@@ -67,7 +67,7 @@ console.log('✔︎ [2/4] merge languages');
 // sort
 periods.sort((a, b) => a.period - b.period);
 
-periods.forEach((period, index) => {
+periods.forEach((period) => {
     period.artefacts.sort((a, b) => {
         let i = 0;
 
