@@ -21,27 +21,35 @@ class SingleView {
         this.data = data;
         this.root = document.querySelector(selector);
         this.lang = 'de';
-        this.current = null;
+        this.current = undefined;
     }
 
     open(inventoryNumber) {
-        console.log(this.findData(inventoryNumber));
-        console.log(inventoryNumber);
+        this.current = this.getData(inventoryNumber);
+
+        this.root.className = this.root.className.replace(' singleview--visible', '');
+
+        if (this.current === undefined) {
+            return;
+        }
+
+        this.root.className += ' singleview--visible';
     }
 
     openWithUrl(url) {
         this.open(SingleView.getInventoryNumber(url));
     }
 
-    /*switchTo(inventoryNumber) {
+    close() {
+        // delete all data
+        // remove class
+    }
+
+    fillWithData(data) {
 
     }
 
-    close() {
-
-    }*/
-
-    findData(inventoryNumber) {
+    getData(inventoryNumber) {
         return this.data[this.lang]?.find((el) => el.inventoryNumber === inventoryNumber);
     }
 
@@ -64,8 +72,7 @@ class SingleView {
 
     if (window.location.hash === '') {
         window.location.hash = '#/';
-    }
-    else {
+    } else {
         singleview.openWithUrl(window.location.hash);
     }
 
