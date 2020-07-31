@@ -45,9 +45,13 @@ class SingleView {
 
         window.addEventListener('keydown', (event) => {
             if (event.code === 'ArrowLeft') {
-                window.location.hash = `#/${this.prev.inventoryNumber}`;
+                if (this.prev !== undefined) {
+                    window.location.hash = `#/${this.prev.inventoryNumber}/`;
+                }
             } else if (event.code === 'ArrowRight') {
-                window.location.hash = `#/${this.next.inventoryNumber}`;
+                if (this.next !== undefined) {
+                    window.location.hash = `#/${this.next.inventoryNumber}/`;
+                }
             } else if (event.code === 'Escape') {
                 window.location.hash = '#/';
             }
@@ -62,6 +66,8 @@ class SingleView {
 
         if (this.current === undefined) {
             this.currentElement = undefined;
+            this.next = undefined;
+            this.prev = undefined;
             return;
         }
 

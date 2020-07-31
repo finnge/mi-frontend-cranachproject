@@ -9,15 +9,16 @@
         alt="{{ titles.0.title }}" 
         class="singleview__image">
 </div>
-<div class="singleview__text content">
-    <h2 class="content__title">{{ titles.0.title }}</h2>
-    <p>
-        {{ description }}
+<h2 class="singleview__title">{{ titles.0.title }}</h2>
+<div class="singleview__text">
+    <p class="expandbox">
+        <span class="expandbox__preview">{{ description.preview }}</span>
+        <span class="expandbox__more">{{ description.more }}</span>
     </p>
-</div>
-<div class="singleview__meta">
-    {{ dimensions}} <br>
-    {{ sortingNumber }}
+    <div class="singleview__meta">
+        {{ dimensions}} <br>
+        {{ sortingNumber }}
+    </div>
 </div>
 <div class="singleview__controls">
     <a class="singleview__back" href="#/{{ prev.inventoryNumber }}" title="{{ prev.title }}">
