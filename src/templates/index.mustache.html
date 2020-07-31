@@ -36,7 +36,7 @@
             <ul class="period-list">
 
                 {{#artefacts}}
-                <li class="period-list__item" id="{{ inventoryNumber }}" data-objectId="{{ objectId }}"
+                <li class="period-list__item" data-inventoryNumber="{{ inventoryNumber }}" data-objectId="{{ objectId }}"
                     data-objectName="{{ objectName }}" data-titleDe="{{ de.titles.0.title }}" data-isBestOf="{{ isBestOf }}">
                     <a href="#/{{ inventoryNumber }}/" class="artefact" title="{{ de.titles.0.title }}">
                         <img src="{{ images.sizes.s.src }}"

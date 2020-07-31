@@ -17,20 +17,36 @@ async function fetchData(apiURL, parseJSON = true) {
 }
 
 class SingleView {
-    constructor(selector) {
-
+    constructor(selector, data) {
+        this.data = data;
+        this.root = document.querySelector(selector);
+        this.lang = 'de';
+        this.current = null;
     }
 
-    switchArtefact() {
-        
+    open(inventoryNumber) {
+        console.log(this.findData(inventoryNumber));
+        console.log(inventoryNumber);
+    }
+
+    openWithUrl(url) {
+        this.open(SingleView.getInventoryNumber(url));
+    }
+
+    /*switchTo(inventoryNumber) {
+
     }
 
     close() {
 
+    }*/
+
+    findData(inventoryNumber) {
+        return this.data[this.lang]?.find((el) => el.inventoryNumber === inventoryNumber);
     }
 
-    open() {
-
+    static getInventoryNumber(url) {
+        return url.replace(config.baseURL, '').replace('#', '').replace('/', '').replace('/', '');
     }
 }
 
@@ -40,7 +56,22 @@ class SingleView {
         en: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.en.json`, true)).items,
     };
 
-    const singleview = new SingleView('.singleview');
+    const singleview = new SingleView('.singleview', data);
+
+    // get url hash
+    // if null => put '#/' as url hash
+    // if !null => open single view
+
+    if (window.location.hash === '') {
+        window.location.hash = '#/';
+    }
+    else {
+        singleview.openWithUrl(window.location.hash);
+    }
+
+    window.addEventListener('hashchange', (event) => {
+        singleview.openWithUrl(event.newURL);
+    });
 
     console.log(data);
 })();
