@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:css": "node-sass --source-map true src/assets/styles/scss src/styles/scss/main.scss -o src/assets/styles/ --output-style compressed",
-    "watch:sass": "node-sass --source-map true --watch src/assets/styles/scss src/styles/scss/main.scss -o src/assets/styles/ --output-style compressed",
+    "dev:css": "node-sass --source-map true src/styles/scss src/scss/main.scss -o src/styles/ --output-style compressed",
+    "watch:sass": "node-sass --source-map true --watch src/styles/scss src/scss/main.scss -o src/styles/ --output-style compressed",
     "watch": "npm-run-all --parallel dev:css watch:*",
     "lint": "npx stylelint **/*.scss",
     "build": "node helper/static-page-generator.js"

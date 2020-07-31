@@ -17,9 +17,10 @@ async function fetchData(apiURL, parseJSON = true) {
 }
 
 class SingleView {
-    constructor(selector, data) {
-        this.data = data;
+    constructor(selector, data, template) {
         this.root = document.querySelector(selector);
+        this.data = data;
+        this.template = template;
         this.lang = 'de';
         this.current = undefined;
     }
@@ -27,13 +28,15 @@ class SingleView {
     open(inventoryNumber) {
         this.current = this.getData(inventoryNumber);
 
-        this.root.className = this.root.className.replace(' singleview--visible', '');
+        this.root.classList.remove('singleview-container--visible');
 
         if (this.current === undefined) {
             return;
         }
 
-        this.root.className += ' singleview--visible';
+        this.root.classList.add('singleview-container--visible');
+
+        this.fillWithData(this.current);
     }
 
     openWithUrl(url) {
@@ -46,7 +49,10 @@ class SingleView {
     }
 
     fillWithData(data) {
+        // eslint-disable-next-line no-undef
+        const rendered = Mustache.render(this.template, data);
 
+        this.root.innerHTML = rendered;
     }
 
     getData(inventoryNumber) {
@@ -60,15 +66,13 @@ class SingleView {
 
 (async () => {
     const data = {
-        de: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.de.json`, true)).items,
-        en: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.en.json`, true)).items,
+        de: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.de.json`)).items,
+        en: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.en.json`)).items,
     };
 
-    const singleview = new SingleView('.singleview', data);
+    const template = await fetchData(`${config.baseURL}src/templates/card.mustache.html`, false);
 
-    // get url hash
-    // if null => put '#/' as url hash
-    // if !null => open single view
+    const singleview = new SingleView('.singleview-container', data, template);
 
     if (window.location.hash === '') {
         window.location.hash = '#/';
@@ -79,6 +83,4 @@ class SingleView {
     window.addEventListener('hashchange', (event) => {
         singleview.openWithUrl(event.newURL);
     });
-
-    console.log(data);
 })();
