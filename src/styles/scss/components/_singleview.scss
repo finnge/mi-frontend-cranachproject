@@ -1,18 +1,74 @@
 .singleview {
-    background-color: $lightest;
-    left: 50%;
-    max-height: 100vh;
-    max-width: 100vw;
-    opacity: 0;
-    padding: $m;
-    pointer-events: none;
     position: fixed;
     top: 50%;
-    transform: translate(-50%, -50%);
+    left: 50%;
     z-index: 3;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: repeat(2, 1fr);
+    width: $content-width;
+    max-width: 100vw;
+    height: $content-width / 2;
+    max-height: 100vh;
+    color: $lightest;
+    background-color: $c-sec-6;
+    border: $border-width solid $lightest;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
 
     &--visible {
         opacity: 1;
         pointer-events: all;
+    }
+
+    &__artefact {
+        grid-row: 1 / span 3;
+        grid-column: 1 / 1;
+        background-color: $darkest;
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &__controls {
+        margin: ($m - $xxs) ($m - $xxs);
+        justify-self: end;
+    }
+
+    &__back,
+    &__fav,
+    &__forward,
+    &__close {
+        @include material-icon;
+        color: $lightest;
+        padding: $xxs;
+        font-size: $l;
+        text-decoration: none;
+    }
+
+    &__close {
+        position: absolute;
+        top: $xxs;
+        left: $xxs;
+    }
+
+    &__text {
+        @include typo-text;
+        margin: 0 $m;
+        margin-bottom: 0;
+        overflow-y: scroll;
+    }
+
+    &__meta {
+        @include typo-meta;
+    }
+
+    &__title {
+        @include typo-title;
+        padding: $m;
     }
 }

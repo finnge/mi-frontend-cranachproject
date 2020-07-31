@@ -30,6 +30,9 @@ class SingleView {
         this.template = template;
         this.lang = 'de';
         this.current = undefined;
+        this.prev = undefined;
+        this.next = undefined;
+        this.currentElement = undefined;
 
         this.init();
     }
@@ -38,6 +41,20 @@ class SingleView {
         this.bg.addEventListener('click', (event) => {
             event.stopPropagation();
             window.location.hash = '#/';
+        });
+
+        window.addEventListener('keydown', (event) => {
+            if (event.code === 'ArrowLeft') {
+                if (this.prev !== undefined) {
+                    window.location.hash = `#/${this.prev.inventoryNumber}/`;
+                }
+            } else if (event.code === 'ArrowRight') {
+                if (this.next !== undefined) {
+                    window.location.hash = `#/${this.next.inventoryNumber}/`;
+                }
+            } else if (event.code === 'Escape') {
+                window.location.hash = '#/';
+            }
         });
     }
 
@@ -48,8 +65,15 @@ class SingleView {
         this.bg.classList.remove(`${this.selector.bg}--visible`);
 
         if (this.current === undefined) {
+            this.currentElement = undefined;
+            this.next = undefined;
+            this.prev = undefined;
             return;
         }
+
+        this.currentElement = document.querySelector(`.period-list__item[data-inventoryNumber="${inventoryNumber}"]`);
+        this.prev = this.getData(this.currentElement.dataset.prev);
+        this.next = this.getData(this.currentElement.dataset.next);
 
         this.root.classList.add(`${this.selector.root}--visible`);
         this.bg.classList.add(`${this.selector.bg}--visible`);
@@ -63,7 +87,17 @@ class SingleView {
 
     fillWithData(data) {
         // eslint-disable-next-line no-undef
-        const rendered = Mustache.render(this.template, data);
+        const rendered = Mustache.render(this.template, {
+            ...data,
+            prev: {
+                inventoryNumber: this.prev?.inventoryNumber,
+                title: this.prev?.titles[0].title,
+            },
+            next: {
+                inventoryNumber: this.next?.inventoryNumber,
+                title: this.next?.titles[0].title,
+            },
+        });
 
         this.root.innerHTML = rendered;
     }
