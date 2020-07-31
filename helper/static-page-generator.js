@@ -15,10 +15,10 @@ const origData = {
     en: JSON.parse(fs.readFileSync(config.path.data('cda-paintings-v2.en'))).items,
 };
 
-console.log('✔︎ [1/4] retrieved data');
+console.log('✔︎ [1/5] retrieved data');
 
 // merging the languages
-const periods = [];
+const mergedData = [];
 
 origData.de.forEach((artefactDE) => {
     const artefactEN = origData.en.find((el) => el.objectId === artefactDE.objectId);
@@ -49,7 +49,52 @@ origData.de.forEach((artefactDE) => {
     artefact.de = artefactDE;
     artefact.en = artefactEN;
 
-    // add to period
+    mergedData.push(artefact);
+});
+
+console.log('✔︎ [2/5] merge languages');
+
+// sort
+mergedData.sort((a, b) => {
+    let i = 0;
+
+    while (a.sortingNumber[i] !== undefined || b.sortingNumber[i] !== undefined) {
+        if (a.sortingNumber[i] > b.sortingNumber[i]) {
+            return 1;
+        }
+        if (a.sortingNumber[i] < b.sortingNumber[i]) {
+            return -1;
+        }
+
+        i += 1;
+    }
+
+    if (a.sortingNumber[i] === undefined && b.sortingNumber[i] !== undefined) {
+        return 1;
+    }
+    if (a.sortingNumber[i] !== undefined && b.sortingNumber[i] === undefined) {
+        return -1;
+    }
+    return 0;
+});
+
+console.log('✔︎ [3/5] sort artefacts');
+
+// prev, next
+mergedData.forEach((artefact, index) => {
+    mergedData[index].prev = (index === 0)
+        ? mergedData[mergedData.length - 1].inventoryNumber
+        : mergedData[index - 1].inventoryNumber;
+    mergedData[index].next = (index === (mergedData.length - 1))
+        ? mergedData[0].inventoryNumber
+        : mergedData[index + 1].inventoryNumber;
+});
+
+console.log('✔︎ [3/5] sort artefacts');
+
+// group in periods
+const periods = [];
+mergedData.forEach((artefact) => {
     const periodIndex = periods.findIndex((el) => el.period === artefact.period);
 
     if (periodIndex < 0) {
@@ -62,37 +107,7 @@ origData.de.forEach((artefactDE) => {
     }
 });
 
-console.log('✔︎ [2/4] merge languages');
-
-// sort
-periods.sort((a, b) => a.period - b.period);
-
-periods.forEach((period) => {
-    period.artefacts.sort((a, b) => {
-        let i = 0;
-
-        while (a.sortingNumber[i] !== undefined || b.sortingNumber[i] !== undefined) {
-            if (a.sortingNumber[i] > b.sortingNumber[i]) {
-                return 1;
-            }
-            if (a.sortingNumber[i] < b.sortingNumber[i]) {
-                return -1;
-            }
-
-            i += 1;
-        }
-
-        if (a.sortingNumber[i] === undefined && b.sortingNumber[i] !== undefined) {
-            return 1;
-        }
-        if (a.sortingNumber[i] !== undefined && b.sortingNumber[i] === undefined) {
-            return -1;
-        }
-        return 0;
-    });
-});
-
-console.log('✔︎ [3/4] sort artefacts');
+console.log('✔︎ [4/5] create periods');
 
 // templating
 const template = {
@@ -104,4 +119,4 @@ const output = Mustache.render(template.index, { periods });
 // printing
 fs.writeFileSync('index.html', output);
 
-console.log('✔︎ [4/4] create file');
+console.log('✔︎ [5/5] create file');

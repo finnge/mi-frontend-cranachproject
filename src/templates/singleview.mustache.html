@@ -16,16 +16,17 @@
     </p>
 </div>
 <div class="singleview__meta">
-    {{ dimensions}}
+    {{ dimensions}} <br>
+    {{ sortingNumber }}
 </div>
 <div class="singleview__controls">
-    <a class="singleview__back" href="#/{{ previous.inventoryNumber }}" title="{{ previous.title }}">
+    <a class="singleview__back" href="#/{{ prev.inventoryNumber }}" title="{{ prev.title }}">
         arrow_back
     </a>
     <span class="singleview__fav">
         favorite_border
     </span>
-    <a class="singleview__forward" href="#/{{ previous.inventoryNumber }}" title="{{ previous.title }}">
+    <a class="singleview__forward" href="#/{{ next.inventoryNumber }}" title="{{ next.title }}">
         arrow_forward
     </a>
 </div>
