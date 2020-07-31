@@ -41,7 +41,7 @@ $c-sec-6: #222;
 $c-sec-7: #000321;
 
 // base
-$darkest: $c-sec-7;
+$darkest: #000;
 $darken: rgba(0, 0, 0, 0.05);
 
 $lightest: #fff;
@@ -53,6 +53,7 @@ $text-color: $darkest;
 $background-color: $lightest;
 $interaction-color: $c-prim;
 $interaction-color-pressed: darken($c-prim, 0.05);
+$overlay-color: rgba($darkest, 0.75);
 
 /**
  * Transitions
