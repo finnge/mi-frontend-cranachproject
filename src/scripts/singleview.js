@@ -1,12 +1,3 @@
-const config = {
-    baseURL: 'http://localhost:5500/',
-    singleview: {
-        root: 'singleview',
-        bg: 'background',
-        card: 'singleview__card',
-    },
-};
-
 async function fetchData(apiURL, parseJSON = true) {
     const response = await fetch(apiURL);
     if (!response.ok) {
@@ -22,12 +13,13 @@ async function fetchData(apiURL, parseJSON = true) {
 }
 
 class SingleView {
-    constructor(selector, data, template) {
+    constructor(selector, baseURL, data, template) {
         this.selector = selector;
         this.root = document.querySelector(`.${selector.root}`);
         this.bg = document.querySelector(`.${selector.bg}`);
         this.data = data;
         this.template = template;
+        this.baseURL = baseURL;
         this.lang = 'de';
         this.current = undefined;
         this.prev = undefined;
@@ -82,7 +74,7 @@ class SingleView {
     }
 
     openWithUrl(url) {
-        this.open(SingleView.getInventoryNumber(url));
+        this.open(SingleView.getInventoryNumber(url, this.baseURL));
     }
 
     fillWithData(data) {
@@ -106,12 +98,21 @@ class SingleView {
         return this.data[this.lang]?.find((el) => el.inventoryNumber === inventoryNumber);
     }
 
-    static getInventoryNumber(url) {
-        return url.replace(config.baseURL, '').replace('#', '').replace('/', '').replace('/', '');
+    static getInventoryNumber(url, baseURL) {
+        return url.replace(baseURL, '').replace('#', '').replace('/', '').replace('/', '');
     }
 }
 
 (async () => {
+    const config = {
+        baseURL: 'http://localhost:5500/',
+        singleview: {
+            root: 'singleview',
+            bg: 'background',
+            card: 'singleview__card',
+        },
+    };
+
     const data = {
         de: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.de.json`)).items,
         en: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.en.json`)).items,
@@ -119,7 +120,9 @@ class SingleView {
 
     const template = await fetchData(`${config.baseURL}src/templates/singleview.mustache.html`, false);
 
-    const singleview = new SingleView(config.singleview, data, template);
+    const singleview = new SingleView(config.singleview, config.baseURL, data, template);
+
+    console.log(singleview);
 
     if (window.location.hash === '') {
         window.location.hash = '#/';

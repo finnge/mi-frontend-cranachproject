@@ -47,6 +47,7 @@
         font-size: $xl;
         margin-left: $l;
         order: 4;
+        cursor: pointer;
     }
 
     &::before,
@@ -74,6 +75,7 @@
     grid-column-gap: $m;
     grid-row-gap: $m;
     grid-template-columns: repeat(6, 1fr);
+    overflow: hidden;
 
     &__item {
         position: relative;
