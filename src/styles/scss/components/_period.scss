@@ -84,6 +84,10 @@
             padding-bottom: 100%;
         }
     }
+
+    &--minified {
+        height: 0;
+    }
 }
 
 .artefact,

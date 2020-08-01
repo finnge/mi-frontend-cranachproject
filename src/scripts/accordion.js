@@ -26,11 +26,13 @@ class Accordion {
     }
 
     open() {
-
+        this.list.classList.remove(`${this.selector.list}--minified`);
+        this.icon.innerHTML = 'expand_less';
     }
 
     close() {
-
+        this.list.classList.add(`${this.selector.list}--minified`);
+        this.icon.innerHTML = 'expand_more';
     }
 }
 
