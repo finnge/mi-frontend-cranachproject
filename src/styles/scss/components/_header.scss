@@ -7,6 +7,16 @@
     top: 0;
     z-index: 1;
 
+    @media screen and (max-width: $bp-small) {
+        bottom: 0;
+        top: auto;
+        border: none;
+
+        &__lang {
+            display: none;
+        }
+    }
+
     &__inner {
         align-items: center;
         display: flex;
@@ -18,5 +28,10 @@
 
     &__title {
         @include typo-header2;
+    }
+
+    &__acc-all{
+        @include material-icon;
+        font-size: $xl;
     }
 }
