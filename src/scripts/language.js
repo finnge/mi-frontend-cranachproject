@@ -3,9 +3,10 @@
     const htmlElement = document.querySelector('html');
 
     langSelect.addEventListener('change', (event) => {
-        const { selectedIndex } = event.target;
-        const { value } = event.target[selectedIndex];
+        const { value } = event.target.selectedOptions[0];
 
         htmlElement.setAttribute('lang', value);
     });
+
+    
 })();
