@@ -1,7 +1,7 @@
 // Parent
 .period {
     margin: 0 auto;
-    max-width: $content-width;
+    max-width: $content-width + 2 * $page-margin;
 
     &:first-of-type {
         margin-top: $m * 2 + $xl + $border-width + $xxl;
@@ -18,6 +18,7 @@
     display: flex;
     justify-content: space-between;
     margin: $xl 0;
+    padding: 0 $page-margin;
 
     &__year {
         @include typo-header1;
@@ -76,6 +77,7 @@
     grid-row-gap: $m;
     grid-template-columns: repeat(6, 1fr);
     overflow: hidden;
+    padding: 0 $page-margin;
 
     &__item {
         position: relative;
