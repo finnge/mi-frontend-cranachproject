@@ -18,3 +18,10 @@ body {
 p {
     margin: $xs 0;
 }
+
+// form elements
+
+select {
+    padding: ($xxs / 2) 0;
+    border-color: $c-sec-4;
+}

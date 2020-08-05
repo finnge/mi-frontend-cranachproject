@@ -14,12 +14,10 @@
         <header class="page-header">
             <div class="page-header__inner">
                 <h1 class="page-header__title">CDA_</h1>
-                <form>
-                    <select name="language" class="page-header__lang">
-                        <option value="de">Deutsch</option>
-                        <option value="en">English</option>
-                    </select>
-                </form>
+                <select name="language" class="page-header__lang">
+                    <option value="de">Deutsch</option>
+                    <option value="en">English</option>
+                </select>
             </div>
         </header>
 
@@ -36,7 +34,8 @@
 
                 {{#artefacts}}
                 <li class="period-list__item" data-inventoryNumber="{{ inventoryNumber }}" data-objectId="{{ objectId }}"
-                    data-objectName="{{ objectName }}" data-titleDe="{{ de.titles.0.title }}" data-isBestOf="{{ isBestOf }}"
+                    data-objectName="{{ objectName }}" data-title-de="{{ de.titles.0.title }}"
+                    data-title-en="{{ en.titles.0.title }}" data-isBestOf="{{ isBestOf }}"
                     data-prev="{{ prev }}" data-next="{{ next }}">
                     <a href="#/{{ inventoryNumber }}/" class="artefact" title="{{ de.titles.0.title }}">
                         <img src="{{ images.sizes.s.src }}"
@@ -58,6 +57,7 @@
 
         <script src="https://unpkg.com/mustache@latest/mustache.min.js"></script>
         <script src="src/scripts/singleview.js" async></script>
+        <script src="src/scripts/language.js" async></script>
         <script src="src/scripts/accordion.js" async></script>
     </body>
 

@@ -20,11 +20,12 @@ class SingleView {
         this.data = data;
         this.template = template;
         this.baseURL = baseURL;
-        this.lang = 'de';
         this.current = undefined;
         this.prev = undefined;
         this.next = undefined;
         this.currentElement = undefined;
+
+        this.lang = () => document.querySelector('html').getAttribute('lang');
 
         this.init();
     }
@@ -95,7 +96,7 @@ class SingleView {
     }
 
     getData(inventoryNumber) {
-        return this.data[this.lang]?.find((el) => el.inventoryNumber === inventoryNumber);
+        return this.data[this.lang()].find((el) => el.inventoryNumber === inventoryNumber);
     }
 
     static getInventoryNumber(url, baseURL) {
