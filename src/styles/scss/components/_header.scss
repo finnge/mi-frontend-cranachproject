@@ -10,7 +10,8 @@
     @media screen and (max-width: $bp-small) {
         bottom: 0;
         top: auto;
-        border: none;
+        border-bottom: none;
+        border-top: $border-width solid $darkest;
 
         &__lang {
             display: none;
@@ -30,8 +31,12 @@
         @include typo-header2;
     }
 
-    &__acc-all{
+    &__button {
         @include material-icon;
         font-size: $xl;
+
+        & + input[type="checkbox"] {
+            display: none;
+        }
     }
 }

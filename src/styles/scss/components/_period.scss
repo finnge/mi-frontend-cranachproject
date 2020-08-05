@@ -2,13 +2,21 @@
 .period {
     margin: 0 auto;
     max-width: $content-width + 2 * $page-margin;
+    
+    @media screen and (min-width: $bp-small) {
+        &:first-of-type {
+            margin-top: $m * 2 + $xl + $border-width + $xxl;
+        }
 
-    &:first-of-type {
-        margin-top: $m * 2 + $xl + $border-width + $xxl;
+        &:last-of-type {
+            margin-bottom: $xxl;
+        }
     }
 
-    &:last-of-type {
-        margin-bottom: $xxl;
+    @media screen and (max-width: $bp-small) {
+        &:last-of-type {
+            margin-bottom: $m * 2 + $xl + $border-width + $xxl;
+        }
     }
 }
 
