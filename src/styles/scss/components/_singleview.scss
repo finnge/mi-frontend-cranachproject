@@ -17,6 +17,12 @@
     opacity: 0;
     pointer-events: none;
 
+    @media screen and (max-width: $bp-small) {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto 100%;
+        height: 100vh;
+    }
+
     &--visible {
         opacity: 1;
         pointer-events: all;
@@ -26,6 +32,12 @@
         grid-row: 1 / span 3;
         grid-column: 1 / 1;
         background-color: $darkest;
+
+        @media screen and (max-width: $bp-small) {
+            grid-row: 1 / 1;
+            height: 40vh;
+            max-height: 400px;
+        }
     }
 
     &__image {
@@ -37,6 +49,10 @@
     &__controls {
         margin: ($m - $xxs) ($m - $xxs);
         justify-self: end;
+
+        @media screen and (max-width: $bp-small) {
+            grid-row: 2 / 2;
+        }
     }
 
     &__back,
@@ -70,5 +86,9 @@
     &__title {
         @include typo-title;
         padding: $m;
+
+        @media screen and (max-width: $bp-small) {
+            grid-row: 3 / 3;
+        }
     }
 }

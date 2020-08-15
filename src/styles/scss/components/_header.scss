@@ -34,9 +34,16 @@
     &__button {
         @include material-icon;
         font-size: $xl;
+        cursor: pointer;
 
         & + input[type="checkbox"] {
             display: none;
         }
+    }
+}
+
+@media screen and (min-width: $bp-small) {
+    label[for='settings__collapse-all'] {
+        display: none;
     }
 }
