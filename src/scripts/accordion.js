@@ -20,7 +20,7 @@ class Accordion {
         });
 
         // language
-        document.querySelector('html').addEventListener('change', (event) => {
+        /*document.querySelector('html').addEventListener('change', (event) => {
             this.artefacts.forEach((el) => {
                 const newTitle = el.getAttribute(`data-title-${event.target.selectedOptions[0].value}`);
 
@@ -30,6 +30,15 @@ class Accordion {
                 artefact.setAttribute('title', newTitle);
                 artefactImage.setAttribute('alt', newTitle);
             });
+        });*/
+
+        // colapse all
+        document.getElementById(this.selector.collapse_all).addEventListener('change', (event) => {
+            if (event.target.checked) {
+                this.close();
+            } else {
+                this.open();
+            }
         });
     }
 
@@ -52,11 +61,41 @@ class Accordion {
         header: 'period-header',
         list: 'period-list',
         icon: 'period-header__icon',
+        collapse_all: 'settings__collapse-all',
     };
     const periods = document.querySelectorAll(`.${config.root}`);
     const accs = [];
 
+    const settingsElement = {
+        collapseAll: document.getElementById(config.collapse_all),
+        collapseAllLabel: document.querySelector(`label[for="${config.collapse_all}"]`),
+    };
+
     periods.forEach((el) => {
         accs.push(new Accordion(el, config));
+    });
+
+    function checkForSmallViewport(vw) {
+        if (vw <= 800) {
+            accs.forEach((el) => {
+                el.close();
+            });
+        } else {
+            accs.forEach((el) => {
+                el.open();
+            });
+        }
+    }
+    window.addEventListener('resize', () => {
+        checkForSmallViewport(window.innerWidth);
+    });
+    checkForSmallViewport(window.innerWidth);
+
+    settingsElement.collapseAll.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            settingsElement.collapseAllLabel.innerHTML = 'unfold_more';
+        } else {
+            settingsElement.collapseAllLabel.innerHTML = 'unfold_less';
+        }
     });
 })();

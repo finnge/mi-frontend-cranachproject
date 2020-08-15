@@ -7,6 +7,4 @@
 
         htmlElement.setAttribute('lang', value);
     });
-
-    
 })();

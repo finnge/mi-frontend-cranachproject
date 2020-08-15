@@ -1,14 +1,22 @@
 // Parent
 .period {
     margin: 0 auto;
-    max-width: $content-width;
+    max-width: $content-width + 2 * $page-margin;
+    
+    @media screen and (min-width: $bp-small) {
+        &:first-of-type {
+            margin-top: $m * 2 + $xl + $border-width + $xxl;
+        }
 
-    &:first-of-type {
-        margin-top: $m * 2 + $xl + $border-width + $xxl;
+        &:last-of-type {
+            margin-bottom: $xxl;
+        }
     }
 
-    &:last-of-type {
-        margin-bottom: $xxl;
+    @media screen and (max-width: $bp-small) {
+        &:last-of-type {
+            margin-bottom: $m * 2 + $xl + $border-width + $xxl;
+        }
     }
 }
 
@@ -18,11 +26,23 @@
     display: flex;
     justify-content: space-between;
     margin: $xl 0;
+    padding: 0 $page-margin;
+
+    @media screen and (max-width: $bp-small) {
+        background-color: $c-sec-6;
+        color: $lightest;
+        padding: $s $page-margin;
+        margin: 0 0 $grid-space-small 0;
+    }
 
     &__year {
         @include typo-header1;
         margin-right: $l;
         order: 0;
+
+        @media screen and (max-width: $bp-small) {
+            @include typo-title2;
+        }
     }
 
     &__meta {
@@ -40,6 +60,10 @@
             font-size: $l;
             margin-right: $xxs;
         }
+
+        @media screen and (max-width: $bp-small) {
+            margin: 0;
+        }
     }
 
     &__icon {
@@ -48,6 +72,10 @@
         margin-left: $l;
         order: 4;
         cursor: pointer;
+
+        @media screen and (max-width: $bp-small) {
+            display: none;
+        }
     }
 
     &::before,
@@ -56,6 +84,10 @@
         content: '';
         display: block;
         width: 100%;
+
+        @media screen and (max-width: $bp-small) {
+            content: none;
+        }
     }
 
     &::before {
@@ -72,10 +104,19 @@
     display: grid;
     grid-auto-flow: row;
     grid-auto-rows: 1fr;
-    grid-column-gap: $m;
-    grid-row-gap: $m;
+    grid-column-gap: $grid-space-big;
+    grid-row-gap: $grid-space-big;
     grid-template-columns: repeat(6, 1fr);
     overflow: hidden;
+    padding: 0 $page-margin;
+
+    @media screen and (max-width: $bp-small) {
+        padding: 0;
+        margin-bottom: $grid-space-small;
+        grid-row-gap: $grid-space-small;
+        grid-column-gap: $grid-space-small;
+        grid-template-columns: repeat(3, 1fr);
+    }
 
     &__item {
         position: relative;
@@ -89,6 +130,10 @@
 
     &--minified {
         height: 0;
+
+        @media screen and (max-width: $bp-small) {
+            margin-bottom: 0;
+        }
     }
 }
 

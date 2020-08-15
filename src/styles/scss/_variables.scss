@@ -65,11 +65,16 @@ $tr-slow: 750ms;
 $tr-easeinoutquart: cubic-bezier(0.77, 0, 0.175, 1);
 
 /**
- * Viewports
+ * Breakpoints
  */
+$bp-small: 800px;
+$bp-verysmall: 800px;
 
 /**
  * Misc
  */
 $content-width: 940px;
 $border-width: 1px;
+$page-margin: $m;
+$grid-space-big: $m;
+$grid-space-small: 4px;

@@ -15,9 +15,11 @@
             <div class="page-header__inner">
                 <h1 class="page-header__title">CDA_</h1>
                 <select name="language" class="page-header__lang">
-                    <option value="de">Deutsch</option>
+                    <option value="de" default>Deutsch</option>
                     <option value="en">English</option>
                 </select>
+                <label class="page-header__button" for="settings__collapse-all">unfold_more</label>
+                <input type="checkbox" name="collapse_all" checked id="settings__collapse-all">
             </div>
         </header>
 
@@ -27,7 +29,7 @@
             <header class="period-header">
                 <h2 class="period-header__year">{{period}}</h2>
                 <span class="period-header__meta">{{artefacts.length}}</span>
-                <span class="period-header__icon">expand_less</span>
+                <button class="period-header__icon">expand_less</button>
             </header>
 
             <ul class="period-list">
