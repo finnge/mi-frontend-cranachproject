@@ -1,16 +1,4 @@
-async function fetchData(apiURL, parseJSON = true) {
-    const response = await fetch(apiURL);
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
-    let data = null;
-    if (parseJSON) {
-        data = await response.json();
-    } else {
-        data = await response.text();
-    }
-    return data;
-}
+
 
 class SingleView {
     constructor(selector, baseURL, data, template) {
@@ -103,35 +91,3 @@ class SingleView {
         return url.replace(baseURL, '').replace('#', '').replace('/', '').replace('/', '');
     }
 }
-
-(async () => {
-    const config = {
-        baseURL: 'http://localhost:5500/',
-        singleview: {
-            root: 'singleview',
-            bg: 'background',
-            card: 'singleview__card',
-        },
-    };
-
-    const data = {
-        de: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.de.json`)).items,
-        en: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.en.json`)).items,
-    };
-
-    const template = await fetchData(`${config.baseURL}src/templates/singleview.mustache.html`, false);
-
-    const singleview = new SingleView(config.singleview, config.baseURL, data, template);
-
-    console.log(singleview);
-
-    if (window.location.hash === '') {
-        window.location.hash = '#/';
-    } else {
-        singleview.openWithUrl(window.location.hash);
-    }
-
-    window.addEventListener('hashchange', (event) => {
-        singleview.openWithUrl(event.newURL);
-    });
-})();
