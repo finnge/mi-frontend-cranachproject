@@ -59,14 +59,11 @@ const config = {
     await Promise.all(mergedData.map(async (artefact, index) => {
         try {
             const res = await fetch(artefact.images.sizes.xs.src);
-
-            console.log(res.ok);
-
             if (!res.ok) {
-                delete mergedData[index];
+                mergedData.splice(index, 1);
             }
         } catch (e) {
-            delete mergedData[index];
+            mergedData.splice(index, 1);
         }
     }));
 
@@ -100,12 +97,16 @@ const config = {
 
     // prev, next
     mergedData.forEach((artefact, index) => {
-        mergedData[index].prev = (index === 0)
-            ? mergedData[mergedData.length - 1].inventoryNumber
-            : mergedData[index - 1].inventoryNumber;
-        mergedData[index].next = (index === (mergedData.length - 1))
-            ? mergedData[0].inventoryNumber
-            : mergedData[index + 1].inventoryNumber;
+        try {
+            mergedData[index].prev = (index === 0)
+                ? mergedData[mergedData.length - 1].inventoryNumber
+                : mergedData[index - 1].inventoryNumber;
+            mergedData[index].next = (index === (mergedData.length - 1))
+                ? mergedData[0].inventoryNumber
+                : mergedData[index + 1].inventoryNumber;
+        } catch (e) {
+            console.log(`Fehler bei prev, next: ${index}`);
+        }
     });
 
     console.log('✔︎ [5/7] group');
