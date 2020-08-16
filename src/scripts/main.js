@@ -51,7 +51,7 @@ async function fetchData(apiURL, parseJSON = true) {
     if (window.location.hash === '') {
         window.location.hash = '#/';
     } else {
-        singleview.openWithUrl(window.location.hash);
+        singleview?.openWithUrl(window.location.hash);
     }
 
     /**

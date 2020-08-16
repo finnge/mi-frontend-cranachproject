@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 const Mustache = require('mustache');
 const fs = require('fs');
+const fetch = require('node-fetch');
 
 const config = {
     path: {
@@ -15,7 +16,7 @@ const origData = {
     en: JSON.parse(fs.readFileSync(config.path.data('cda-paintings-v2.en'))).items,
 };
 
-console.log('✔︎ [1/5] retrieved data');
+console.log('✔︎ [1/7] retrieved data');
 
 // merging the languages
 const mergedData = [];
@@ -52,7 +53,22 @@ origData.de.forEach((artefactDE) => {
     mergedData.push(artefact);
 });
 
-console.log('✔︎ [2/5] merge languages');
+console.log('✔︎ [2/7] merge languages');
+
+// delete not functioning artefacts
+mergedData.filter(async (artefact) => {
+    try {
+        const res = await fetch(artefact.images.sizes.xs.src);
+
+        console.log(res.ok);
+
+        return res.ok === false;
+    } catch (e) {
+        return true;
+    }
+});
+
+console.log('✔︎ [3/7] delete not functioning artefacts');
 
 // sort
 mergedData.sort((a, b) => {
@@ -78,7 +94,7 @@ mergedData.sort((a, b) => {
     return 0;
 });
 
-console.log('✔︎ [3/5] sort artefacts');
+console.log('✔︎ [4/7] sort artefacts');
 
 // prev, next
 mergedData.forEach((artefact, index) => {
@@ -90,7 +106,7 @@ mergedData.forEach((artefact, index) => {
         : mergedData[index + 1].inventoryNumber;
 });
 
-console.log('✔︎ [3/5] sort artefacts');
+console.log('✔︎ [5/7] group');
 
 // group in periods
 const periods = [];
@@ -107,7 +123,7 @@ mergedData.forEach((artefact) => {
     }
 });
 
-console.log('✔︎ [4/5] create periods');
+console.log('✔︎ [6/7] create periods');
 
 // templating
 const template = {
@@ -119,4 +135,4 @@ const output = Mustache.render(template.index, { periods });
 // printing
 fs.writeFileSync('index.html', output);
 
-console.log('✔︎ [5/5] create file');
+console.log('✔︎ [7/7] create file');

@@ -38,6 +38,7 @@
     "stylelint-order": "^4.1.0"
   },
   "dependencies": {
-    "mustache": "^4.0.1"
+    "mustache": "^4.0.1",
+    "node-fetch": "^2.6.0"
   }
 }
