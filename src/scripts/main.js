@@ -12,47 +12,30 @@ async function fetchData(apiURL, parseJSON = true) {
     return data;
 }
 
-function isHashConform(hash) {
-    const pattern = /#\/[a-z]{2}\/([\w-]+\/)?/;
+Object.defineProperty(window.location, 'language', {
+    get: () => {
+        const language = window.location.hash.match(/(?<=#\/)[a-z]{2}(?=\/)/);
 
-    return pattern.test(hash);
-}
+        return language === null ? null : language[0];
+    },
+    set: (language) => {
+        window.location.hash = `#/${language}/${window.location.inventoryNumber}/`;
+    },
+});
 
-function getHashParts(hash) {
-    if (!isHashConform(hash)) {
-        return false;
-    }
+Object.defineProperty(window.location, 'inventoryNumber', {
+    get: () => {
+        const inventoryNumber = window.location.hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?/);
 
-    const language = hash.match(/(?<=#\/)[a-z]{2}(?=\/)/);
-    const inventoryNumber = hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?/);
-
-    return {
-        language: language == null ? null : language[0],
-        inventoryNumber: inventoryNumber == null ? null : inventoryNumber[0],
-    };
-}
-
-function newHash(parts) {
-    const {
-        language,
-        inventoryNumber
-    } = {
-        language: 'de',
-        inventoryNumber: null,
-        ...parts
-    };
-
-    return `#/${language}/${(inventoryNumber === null) ? '' : `${inventoryNumber}/`}`;
-}
+        return inventoryNumber === null ? null : inventoryNumber[0];
+    },
+    set: (inventoryNumber) => {
+        window.location.hash = `#/${window.location.language}/${inventoryNumber}/`;
+    },
+});
 
 const config = {
     baseURL: 'http://localhost:5500/',
-    set language(newLang) {
-        return window.localStorage.setItem('language', newLang);
-    },
-    get language() {
-        return window.localStorage.getItem('language') || window.localStorage.setItem('language', 'de');
-    },
     singleview: {
         root: 'singleview',
         bg: 'background',
@@ -81,20 +64,26 @@ const config = {
     };
 
     /**
+     * Defaults
+     */
+    if (window.location.language === null) {
+        window.location.language = 'de';
+    }
+
+    /**
      * Single-View
      */
+    // eslint-disable-next-line no-undef
     const singleview = new SingleView(
         config.singleview,
         config.baseURL,
-        config.language,
+        window.location.language,
         data,
         template.singleview,
     );
-    window.addEventListener('hashchange', (event) => {
-        const url = new URL(event.newURL);
-        const { inventoryNumber } = getHashParts(url.hash);
-
-        singleview?.open(inventoryNumber);
+    singleview?.open(window.location.inventoryNumber);
+    window.addEventListener('hashchange', () => {
+        singleview?.open(window.location.inventoryNumber);
     });
 
     /**
@@ -108,6 +97,7 @@ const config = {
     };
 
     periods.forEach((el) => {
+        // eslint-disable-next-line no-undef
         accs.push(new Accordion(el, config.accordion, config.language));
     });
 
@@ -147,18 +137,6 @@ const config = {
         htmlElement?.setAttribute('lang', value);
         config.language(value);
     });
-
-    /**
-     * On Page Load
-     */
-
-    if (!isHashConform(window.location.hash)) {
-        window.location.hash = `#/${config.language}/`;
-    } else {
-        const { inventoryNumber } = getHashParts(window.location.hash);
-
-        singleview?.open(inventoryNumber);
-    }
 })();
 
 

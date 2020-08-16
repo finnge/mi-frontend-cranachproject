@@ -1,5 +1,4 @@
-
-
+// eslint-disable-next-line no-unused-vars
 class SingleView {
     constructor(selector, baseURL, language, data, template) {
         this.selector = selector;
@@ -27,7 +26,7 @@ class SingleView {
         window.addEventListener('keydown', (event) => {
             if (event.code === 'ArrowLeft') {
                 if (this.prev !== undefined) {
-                    window.location.hash = `#/${this.prev.inventoryNumber}/`;
+                    window.location.hash = `#/this.lang/${this.prev.inventoryNumber}/`;
                 }
             } else if (event.code === 'ArrowRight') {
                 if (this.next !== undefined) {
@@ -78,6 +77,7 @@ class SingleView {
                 inventoryNumber: this.next?.inventoryNumber,
                 title: this.next?.titles[0].title,
             },
+            language: this.lang,
         });
 
         this.root.innerHTML = rendered;
