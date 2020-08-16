@@ -2,7 +2,6 @@
 /* eslint-disable no-param-reassign */
 const Mustache = require('mustache');
 const fs = require('fs');
-const fetch = require('node-fetch');
 
 const config = {
     path: {
@@ -56,26 +55,14 @@ const config = {
 
     console.log('✔︎ [2/7] merge languages');
 
-    let removeCount = 0;
+    const filterdData = mergedData.filter(
+        (artefact) => artefact.images !== null && artefact.images.infos.maxDimensions.width !== 0
+    );
 
-    // delete not functioning artefacts
-    await Promise.all(mergedData.map(async (artefact, index) => {
-        try {
-            const res = await fetch(artefact.images.sizes.xs.src);
-            if (!res.ok) {
-                mergedData.splice(index, 1);
-                removeCount += 1;
-            }
-        } catch (e) {
-            mergedData.splice(index, 1);
-            removeCount += 1;
-        }
-    }));
-
-    console.log(`✔︎ [3/7] tested artefacts (Removed ${removeCount} non-functioning)`);
+    console.log('✔︎ [3/7] tested artefacts');
 
     // sort
-    mergedData.sort((a, b) => {
+    filterdData.sort((a, b) => {
         let i = 0;
 
         while (a.sortingNumber[i] !== undefined || b.sortingNumber[i] !== undefined) {
@@ -101,14 +88,14 @@ const config = {
     console.log('✔︎ [4/7] sort artefacts');
 
     // prev, next
-    mergedData.forEach((artefact, index) => {
+    filterdData.forEach((artefact, index) => {
         try {
-            mergedData[index].prev = (index === 0)
-                ? mergedData[mergedData.length - 1].inventoryNumber
-                : mergedData[index - 1].inventoryNumber;
-            mergedData[index].next = (index === (mergedData.length - 1))
-                ? mergedData[0].inventoryNumber
-                : mergedData[index + 1].inventoryNumber;
+            filterdData[index].prev = (index === 0)
+                ? filterdData[filterdData.length - 1].inventoryNumber
+                : filterdData[index - 1].inventoryNumber;
+            filterdData[index].next = (index === (filterdData.length - 1))
+                ? filterdData[0].inventoryNumber
+                : filterdData[index + 1].inventoryNumber;
         } catch (e) {
             console.log(`Fehler bei prev, next: ${index}`);
         }
@@ -118,7 +105,7 @@ const config = {
 
     // group in periods
     const periods = [];
-    mergedData.forEach((artefact) => {
+    filterdData.forEach((artefact) => {
         const periodIndex = periods.findIndex((el) => el.period === artefact.period);
 
         if (periodIndex < 0) {
