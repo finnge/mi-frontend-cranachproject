@@ -12,6 +12,12 @@ async function fetchData(apiURL, parseJSON = true) {
     return data;
 }
 
+function isHashConform(hash) {
+    const pattern = /#\/[a-z]{2}\/([\w]+\/)?/;
+
+    return pattern.test(hash);
+}
+
 Object.defineProperty(window.location, 'language', {
     get: () => {
         const language = window.location.hash.match(/(?<=#\/)[a-z]{2}(?=\/)/);
@@ -19,7 +25,8 @@ Object.defineProperty(window.location, 'language', {
         return language === null ? null : language[0];
     },
     set: (language) => {
-        window.location.hash = `#/${language}/${window.location.inventoryNumber}/`;
+        const { inventoryNumber } = window.location;
+        window.location.hash = `#/${language}/${(inventoryNumber === null) ? '' : `${inventoryNumber}/`}`;
     },
 });
 
@@ -66,7 +73,7 @@ const config = {
     /**
      * Defaults
      */
-    if (window.location.language === null) {
+    if (!isHashConform(window.location.hash)) {
         window.location.language = 'de';
     }
 
