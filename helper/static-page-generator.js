@@ -10,6 +10,7 @@ const config = {
         data: (file) => `src/data/${file}.json`,
     },
 };
+
 (async () => {
     const origData = {
         de: JSON.parse(fs.readFileSync(config.path.data('cda-paintings-v2.de'))).items,
@@ -55,19 +56,23 @@ const config = {
 
     console.log('✔︎ [2/7] merge languages');
 
+    let removeCount = 0;
+
     // delete not functioning artefacts
     await Promise.all(mergedData.map(async (artefact, index) => {
         try {
             const res = await fetch(artefact.images.sizes.xs.src);
             if (!res.ok) {
                 mergedData.splice(index, 1);
+                removeCount += 1;
             }
         } catch (e) {
             mergedData.splice(index, 1);
+            removeCount += 1;
         }
     }));
 
-    console.log('✔︎ [3/7] delete not functioning artefacts');
+    console.log(`✔︎ [3/7] tested artefacts (Removed ${removeCount} non-functioning)`);
 
     // sort
     mergedData.sort((a, b) => {
