@@ -12,26 +12,35 @@ async function fetchData(apiURL, parseJSON = true) {
     return data;
 }
 
+function isHashConform(hash) {
+    const pattern = /#\/[a-z]{2}\/([\w]+\/)?/;
+
+    return pattern.test(hash);
+}
+
+const config = {
+    baseURL: 'http://localhost:5500/',
+    language() {
+        return window.localStorage.getItem('language') || 'de';
+    },
+    singleview: {
+        root: 'singleview',
+        bg: 'background',
+        card: 'singleview__card',
+    },
+    accordion: {
+        root: 'period',
+        header: 'period-header',
+        list: 'period-list',
+        icon: 'period-header__icon',
+        collapse_all: 'settings__collapse-all',
+    },
+};
+
 /**
  * Main-Routine
  */
 (async () => {
-    const config = {
-        baseURL: 'http://localhost:5500/',
-        singleview: {
-            root: 'singleview',
-            bg: 'background',
-            card: 'singleview__card',
-        },
-        accordion: {
-            root: 'period',
-            header: 'period-header',
-            list: 'period-list',
-            icon: 'period-header__icon',
-            collapse_all: 'settings__collapse-all',
-        },
-    };
-
     const data = {
         de: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.de.json`)).items,
         en: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.en.json`)).items,
@@ -48,11 +57,6 @@ async function fetchData(apiURL, parseJSON = true) {
     window.addEventListener('hashchange', (event) => {
         singleview?.openWithUrl(event.newURL);
     });
-    if (window.location.hash === '') {
-        window.location.hash = '#/';
-    } else {
-        singleview?.openWithUrl(window.location.hash);
-    }
 
     /**
      * Periods
@@ -84,7 +88,7 @@ async function fetchData(apiURL, parseJSON = true) {
     });
     checkForSmallViewport(window.innerWidth);
 
-    settingsElement?.collapseAll.addEventListener('change', (event) => {
+    settingsElement?.collapseAll?.addEventListener('change', (event) => {
         if (event.target.checked) {
             settingsElement.collapseAllLabel.innerHTML = 'unfold_more';
         } else {
@@ -103,4 +107,15 @@ async function fetchData(apiURL, parseJSON = true) {
 
         htmlElement?.setAttribute('lang', value);
     });
+
+    /**
+     * On Page Load
+     */
+    console.log(isHashConform(window.location.hash));
+
+    if (!isHashConform(window.location.hash)) {
+        window.location.hash = `#/${config.language()}/`;
+    } else {
+        singleview?.openWithUrl(window.location.hash);
+    }
 })();
