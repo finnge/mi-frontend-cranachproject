@@ -1,5 +1,5 @@
 class Accordion {
-    constructor(element, selector, startOpen = true) {
+    constructor(element, selector, language, startOpen = true) {
         this.selector = selector;
         this.root = element;
         this.header = this.root.querySelector(`.${this.selector.header}`);
@@ -8,7 +8,7 @@ class Accordion {
         this.artefacts = this.list.querySelectorAll(`.${this.selector.list}__item`);
         this.isOpen = startOpen;
 
-        this.lang = () => document.querySelector('html').getAttribute('lang');
+        this.lang = language;
 
         this.init();
     }

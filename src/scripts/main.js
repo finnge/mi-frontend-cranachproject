@@ -13,15 +13,45 @@ async function fetchData(apiURL, parseJSON = true) {
 }
 
 function isHashConform(hash) {
-    const pattern = /#\/[a-z]{2}\/([\w]+\/)?/;
+    const pattern = /#\/[a-z]{2}\/([\w-]+\/)?/;
 
     return pattern.test(hash);
 }
 
+function getHashParts(hash) {
+    if (!isHashConform(hash)) {
+        return false;
+    }
+
+    const language = hash.match(/(?<=#\/)[a-z]{2}(?=\/)/);
+    const inventoryNumber = hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?/);
+
+    return {
+        language: language == null ? null : language[0],
+        inventoryNumber: inventoryNumber == null ? null : inventoryNumber[0],
+    };
+}
+
+function newHash(parts) {
+    const {
+        language,
+        inventoryNumber
+    } = {
+        language: 'de',
+        inventoryNumber: null,
+        ...parts
+    };
+
+    return `#/${language}/${(inventoryNumber === null) ? '' : `${inventoryNumber}/`}`;
+}
+
 const config = {
     baseURL: 'http://localhost:5500/',
-    language() {
-        return window.localStorage.getItem('language') || 'de';
+    set language(newLang) {
+        return window.localStorage.setItem('language', newLang);
+    },
+    get language() {
+        return window.localStorage.getItem('language') || window.localStorage.setItem('language', 'de');
     },
     singleview: {
         root: 'singleview',
@@ -53,9 +83,18 @@ const config = {
     /**
      * Single-View
      */
-    const singleview = new SingleView(config.singleview, config.baseURL, data, template.singleview);
+    const singleview = new SingleView(
+        config.singleview,
+        config.baseURL,
+        config.language,
+        data,
+        template.singleview,
+    );
     window.addEventListener('hashchange', (event) => {
-        singleview?.openWithUrl(event.newURL);
+        const url = new URL(event.newURL);
+        const { inventoryNumber } = getHashParts(url.hash);
+
+        singleview?.open(inventoryNumber);
     });
 
     /**
@@ -69,7 +108,7 @@ const config = {
     };
 
     periods.forEach((el) => {
-        accs.push(new Accordion(el, config.accordion));
+        accs.push(new Accordion(el, config.accordion, config.language));
     });
 
     function checkForSmallViewport(vw) {
@@ -106,16 +145,28 @@ const config = {
         const { value } = event.target.selectedOptions[0];
 
         htmlElement?.setAttribute('lang', value);
+        config.language(value);
     });
 
     /**
      * On Page Load
      */
-    console.log(isHashConform(window.location.hash));
 
     if (!isHashConform(window.location.hash)) {
-        window.location.hash = `#/${config.language()}/`;
+        window.location.hash = `#/${config.language}/`;
     } else {
-        singleview?.openWithUrl(window.location.hash);
+        const { inventoryNumber } = getHashParts(window.location.hash);
+
+        singleview?.open(inventoryNumber);
     }
 })();
+
+
+/**
+ * - [ ] check if url fits norm => go to basic (could be smarter)
+ * - [ ] Ask for languge if hash is not to norm
+ * - [ ] url is home for language => extract language from url / change language from url
+ * - [ ] ID is home for singleview => extract ID from url / change ID from URL
+ * - [ ] change DOM from hash change => only with language (event)
+ * - [ ] change select element from hash value (event)
+ */
