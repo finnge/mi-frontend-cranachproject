@@ -1,3 +1,14 @@
+/**
+ * 
+ */
+const languageEvent = new Event('langchange');
+const inventoryNumberEvent = new Event('artefactchange');
+
+/**
+ * 
+ * @param {*} apiURL 
+ * @param {*} parseJSON 
+ */
 async function fetchData(apiURL, parseJSON = true) {
     const response = await fetch(apiURL);
     if (!response.ok) {
@@ -12,12 +23,19 @@ async function fetchData(apiURL, parseJSON = true) {
     return data;
 }
 
+/**
+ * 
+ * @param {*} hash 
+ */
 function isHashConform(hash) {
     const pattern = /#\/[a-z]{2}\/([\w]+\/)?/;
 
     return pattern.test(hash);
 }
 
+/**
+ * 
+ */
 Object.defineProperty(window.location, 'language', {
     get: () => {
         const language = window.location.hash.match(/(?<=#\/)[a-z]{2}(?=\/)/);
@@ -27,9 +45,14 @@ Object.defineProperty(window.location, 'language', {
     set: (language) => {
         const { inventoryNumber } = window.location;
         window.location.hash = `#/${language}/${(inventoryNumber === null) ? '' : `${inventoryNumber}/`}`;
+
+        window.dispatchEvent(languageEvent);
     },
 });
 
+/**
+ * 
+ */
 Object.defineProperty(window.location, 'inventoryNumber', {
     get: () => {
         const inventoryNumber = window.location.hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?(?=\/)/);
@@ -38,9 +61,14 @@ Object.defineProperty(window.location, 'inventoryNumber', {
     },
     set: (inventoryNumber) => {
         window.location.hash = `#/${window.location.language}/${(!inventoryNumber) ? '' : `${inventoryNumber}/`}`;
+
+        window.dispatchEvent(inventoryNumberEvent);
     },
 });
 
+/**
+ * 
+ */
 const config = {
     baseURL: './',
     singleview: {
@@ -72,6 +100,11 @@ const config = {
     const template = {
         singleview: await fetchData(`${config.baseURL}src/templates/singleview.mustache.html`, false),
     };
+
+    window.addEventListener('hashchange', () => {
+        window.dispatchEvent(languageEvent);
+        window.dispatchEvent(inventoryNumberEvent);
+    });
 
     /**
      * Defaults
@@ -105,11 +138,9 @@ const config = {
         collapseAllLabel: document.querySelector(`label[for="${config.accordion.collapse_all}"]`),
     };
 
-    console.log(periods);
-
     periods.forEach((el) => {
         // eslint-disable-next-line no-undef
-        accs.push(new Accordion(el, config.accordion, config.language));
+        accs.push(new Accordion(el, config.accordion));
     });
 
     function checkForSmallViewport(vw) {
@@ -144,10 +175,18 @@ const config = {
 
     langSelect?.addEventListener('change', (event) => {
         const { value } = event.target.selectedOptions[0];
-
-        htmlElement?.setAttribute('lang', value);
         window.location.language = value;
     });
+
+    function onLangChange() {
+        htmlElement?.setAttribute('lang', window.location.language);
+        langSelect.value = window.location.language;
+    }
+
+    window.addEventListener('langchange', () => {
+        onLangChange();
+    });
+    onLangChange();
 })();
 
 

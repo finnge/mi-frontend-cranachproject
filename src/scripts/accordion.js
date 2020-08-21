@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 class Accordion {
-    constructor(element, selector, language, startOpen = true) {
+    constructor(element, selector, startOpen = true) {
         this.selector = selector;
         this.root = element;
         this.header = this.root.querySelector(`.${this.selector.header}`);
@@ -7,8 +8,6 @@ class Accordion {
         this.icon = this.root.querySelector(`.${this.selector.icon}`);
         this.artefacts = this.list.querySelectorAll(`.${this.selector.list}__item`);
         this.isOpen = startOpen;
-
-        this.lang = language;
 
         this.init();
     }
@@ -20,17 +19,10 @@ class Accordion {
         });
 
         // language
-        /*document.querySelector('html').addEventListener('change', (event) => {
-            this.artefacts.forEach((el) => {
-                const newTitle = el.getAttribute(`data-title-${event.target.selectedOptions[0].value}`);
-
-                const artefact = el.querySelector('.artefact');
-                const artefactImage = el.querySelector('.artefact__image');
-
-                artefact.setAttribute('title', newTitle);
-                artefactImage.setAttribute('alt', newTitle);
-            });
-        });*/
+        window.addEventListener('langchange', () => {
+            this.onLangChange();
+        });
+        this.onLangChange();
 
         // colapse all
         document.getElementById(this.selector.collapse_all).addEventListener('change', (event) => {
@@ -52,5 +44,19 @@ class Accordion {
         this.list.classList.add(`${this.selector.list}--minified`);
         this.icon.innerHTML = 'expand_more';
         this.isOpen = false;
+    }
+
+    onLangChange() {
+        this.artefacts.forEach((el) => {
+            const newTitle = el.getAttribute(`data-title-${window.location.language}`);
+            const inventoryNumber = el.getAttribute('data-inventoryNumber');
+
+            const artefact = el.querySelector('.artefact');
+            const artefactImage = el.querySelector('.artefact__image');
+
+            artefact.setAttribute('title', newTitle);
+            artefact.setAttribute('href', `#/${window.location.language}/${inventoryNumber}/`);
+            artefactImage.setAttribute('alt', newTitle);
+        });
     }
 }
