@@ -46,13 +46,7 @@
                                      {{ images.sizes.m.src }} {{ images.sizes.m.dimensions.width }}w"
                              sizes="(min-width: 940px) 140px, 33vw"
                              alt="{{ de.titles.0.title }}" class="artefact__image">-->
-                        <picture class="artefact__image" title="{{ de.titles.0.title }}">
-                            <source srcset="{{ images.sizes.xs.src }} {{ images.sizes.xs.dimensions.width }}w,
-                                            {{ images.sizes.s.src }} {{ images.sizes.s.dimensions.width }}w,
-                                            {{ images.sizes.m.src }} {{ images.sizes.m.dimensions.width }}w"
-                                    media="(max-width: 940px)">
-                            <img src="{{ images.sizes.s.src }}">
-                        </picture>
+                        <img src="{{ images.sizes.s.src }}" alt="{{ de.titles.0.title }}" class="artefact__image">
                     </a>
                 </li>
                 {{/artefacts}}
