@@ -44,7 +44,7 @@ Object.defineProperty(window.location, 'language', {
     },
     set: (language) => {
         const { inventoryNumber } = window.location;
-        window.location.hash = `#/${language}/${(inventoryNumber === null) ? '' : `${inventoryNumber}/`}`;
+        window.location.hash = `#/${(language === null) ? '' : `${language}/`}${(inventoryNumber === null) ? '' : `${inventoryNumber}/`}`;
 
         window.dispatchEvent(languageEvent);
     },
@@ -60,7 +60,8 @@ Object.defineProperty(window.location, 'inventoryNumber', {
         return inventoryNumber === null ? null : inventoryNumber[0];
     },
     set: (inventoryNumber) => {
-        window.location.hash = `#/${window.location.language}/${(!inventoryNumber) ? '' : `${inventoryNumber}/`}`;
+        const { language } = window.location;
+        window.location.hash = `#/${(language === null) ? '' : `${language}/`}${(!inventoryNumber) ? '' : `${inventoryNumber}/`}`;
 
         window.dispatchEvent(inventoryNumberEvent);
     },
@@ -85,6 +86,7 @@ const config = {
     },
     langChooser: {
         root: 'lang-chooser',
+        bg: 'background',
     },
 };
 
@@ -110,7 +112,7 @@ const config = {
      * Defaults
      */
     if (!isHashConform(window.location.hash)) {
-        window.location.language = 'de';
+        window.location.language = null;
     }
 
     /**
@@ -170,8 +172,10 @@ const config = {
     /**
      * Language
      */
-    const langSelect = document.querySelector('.page-header__lang');
     const htmlElement = document.querySelector('html');
+    const langSelect = document.querySelector('.page-header__lang');
+    // eslint-disable-next-line no-undef
+    const langChooser = new LangChooser(config.langChooser);
 
     langSelect?.addEventListener('change', (event) => {
         const { value } = event.target.selectedOptions[0];
@@ -188,13 +192,3 @@ const config = {
     });
     onLangChange();
 })();
-
-
-/**
- * - [ ] check if url fits norm => go to basic (could be smarter)
- * - [ ] Ask for languge if hash is not to norm
- * - [ ] url is home for language => extract language from url / change language from url
- * - [ ] ID is home for singleview => extract ID from url / change ID from URL
- * - [ ] change DOM from hash change => only with language (event)
- * - [ ] change select element from hash value (event)
- */
