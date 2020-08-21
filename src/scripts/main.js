@@ -109,13 +109,6 @@ const config = {
     });
 
     /**
-     * Defaults
-     */
-    if (!isHashConform(window.location.hash)) {
-        window.location.language = null;
-    }
-
-    /**
      * Single-View
      */
     // eslint-disable-next-line no-undef
