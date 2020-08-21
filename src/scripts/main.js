@@ -55,6 +55,9 @@ const config = {
         icon: 'period-header__icon',
         collapse_all: 'settings__collapse-all',
     },
+    langChooser: {
+        root: 'lang-chooser',
+    },
 };
 
 /**
