@@ -17,8 +17,9 @@ class SingleView {
 
     init() {
         this.bg.addEventListener('click', (event) => {
-            event.stopPropagation();
-            window.location.inventoryNumber = null;
+            if (window.location.language) {
+                window.location.inventoryNumber = null;
+            }
         });
 
         window.addEventListener('keydown', (event) => {
