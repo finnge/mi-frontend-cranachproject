@@ -1,3 +1,14 @@
+/**
+ * 
+ */
+const languageEvent = new Event('langchange');
+const inventoryNumberEvent = new Event('artefactchange');
+
+/**
+ * 
+ * @param {*} apiURL 
+ * @param {*} parseJSON 
+ */
 async function fetchData(apiURL, parseJSON = true) {
     const response = await fetch(apiURL);
     if (!response.ok) {
@@ -12,12 +23,19 @@ async function fetchData(apiURL, parseJSON = true) {
     return data;
 }
 
+/**
+ * 
+ * @param {*} hash 
+ */
 function isHashConform(hash) {
     const pattern = /#\/[a-z]{2}\/([\w]+\/)?/;
 
     return pattern.test(hash);
 }
 
+/**
+ * 
+ */
 Object.defineProperty(window.location, 'language', {
     get: () => {
         const language = window.location.hash.match(/(?<=#\/)[a-z]{2}(?=\/)/);
@@ -27,9 +45,14 @@ Object.defineProperty(window.location, 'language', {
     set: (language) => {
         const { inventoryNumber } = window.location;
         window.location.hash = `#/${language}/${(inventoryNumber === null) ? '' : `${inventoryNumber}/`}`;
+
+        window.dispatchEvent(languageEvent);
     },
 });
 
+/**
+ * 
+ */
 Object.defineProperty(window.location, 'inventoryNumber', {
     get: () => {
         const inventoryNumber = window.location.hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?(?=\/)/);
@@ -41,6 +64,9 @@ Object.defineProperty(window.location, 'inventoryNumber', {
     },
 });
 
+/**
+ * 
+ */
 const config = {
     baseURL: './',
     singleview: {
@@ -106,7 +132,7 @@ const config = {
 
     periods.forEach((el) => {
         // eslint-disable-next-line no-undef
-        accs.push(new Accordion(el, config.accordion, config.language));
+        accs.push(new Accordion(el, config.accordion));
     });
 
     function checkForSmallViewport(vw) {

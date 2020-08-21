@@ -42,7 +42,7 @@ class SingleView {
         this.root.classList.remove(`${this.selector.root}--visible`);
         this.bg.classList.remove(`${this.selector.bg}--visible`);
 
-        if (this.current === undefined) {
+        if (!this.current) {
             this.currentElement = undefined;
             this.next = undefined;
             this.prev = undefined;
@@ -78,7 +78,7 @@ class SingleView {
     }
 
     getData(inventoryNumber) {
-        return this.data[window.location.language].find(
+        return this.data[window.location.language]?.find(
             (el) => el.inventoryNumber === inventoryNumber,
         );
     }
