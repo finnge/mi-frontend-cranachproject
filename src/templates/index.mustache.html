@@ -40,12 +40,13 @@
                     data-title-en="{{ en.titles.0.title }}" data-isBestOf="{{ isBestOf }}"
                     data-prev="{{ prev }}" data-next="{{ next }}">
                     <a href="#/{{ inventoryNumber }}/" class="artefact" title="{{ de.titles.0.title }}">
-                        <img src="{{ images.sizes.s.src }}"
+                        <!--<img src="{{ images.sizes.s.src }}"
                              srcset="{{ images.sizes.xs.src }} {{ images.sizes.xs.dimensions.width }}w,
-                                    {{ images.sizes.s.src }} {{ images.sizes.s.dimensions.width }}w,
-                                    {{ images.sizes.m.src }} {{ images.sizes.m.dimensions.width }}w"
+                                     {{ images.sizes.s.src }} {{ images.sizes.s.dimensions.width }}w,
+                                     {{ images.sizes.m.src }} {{ images.sizes.m.dimensions.width }}w"
                              sizes="(min-width: 940px) 140px, 33vw"
-                             alt="{{ de.titles.0.title }}" class="artefact__image">
+                             alt="{{ de.titles.0.title }}" class="artefact__image">-->
+                        <img src="{{ images.sizes.s.src }}" alt="{{ de.titles.0.title }}" class="artefact__image">
                     </a>
                 </li>
                 {{/artefacts}}
