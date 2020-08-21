@@ -3,6 +3,7 @@ class LangChooser {
     constructor(selector) {
         this.selector = selector;
         this.root = document.querySelector(`.${selector.root}`);
+        this.bg = document.querySelector(`.${selector.bg}`);
 
         this.init();
     }
@@ -17,19 +18,18 @@ class LangChooser {
     onLangChange() {
         if (!window.location.language) {
             this.open();
-        }
-        else {
+        } else {
             this.close();
         }
     }
 
     open() {
         this.root.classList.add(`${this.selector.root}--visible`);
-        console.log(this.root.classList);
+        this.bg.classList.add(`${this.selector.bg}--visible`);
     }
 
     close() {
         this.root.classList.remove(`${this.selector.root}--visible`);
-        console.log(this.root.classList);
+        this.bg.classList.remove(`${this.selector.bg}--visible`);
     }
 }
