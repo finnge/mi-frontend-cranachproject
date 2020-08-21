@@ -1,5 +1,4 @@
-
-
+// eslint-disable-next-line no-unused-vars
 class SingleView {
     constructor(selector, baseURL, data, template) {
         this.selector = selector;
@@ -13,28 +12,26 @@ class SingleView {
         this.next = undefined;
         this.currentElement = undefined;
 
-        this.lang = () => document.querySelector('html').getAttribute('lang');
-
         this.init();
     }
 
     init() {
         this.bg.addEventListener('click', (event) => {
             event.stopPropagation();
-            window.location.hash = '#/';
+            window.location.inventoryNumber = null;
         });
 
         window.addEventListener('keydown', (event) => {
             if (event.code === 'ArrowLeft') {
                 if (this.prev !== undefined) {
-                    window.location.hash = `#/${this.prev.inventoryNumber}/`;
+                    window.location.inventoryNumber = this.prev.inventoryNumber;
                 }
             } else if (event.code === 'ArrowRight') {
                 if (this.next !== undefined) {
-                    window.location.hash = `#/${this.next.inventoryNumber}/`;
+                    window.location.inventoryNumber = this.next.inventoryNumber;
                 }
             } else if (event.code === 'Escape') {
-                window.location.hash = '#/';
+                window.location.inventoryNumber = null;
             }
         });
     }
@@ -62,10 +59,6 @@ class SingleView {
         this.fillWithData(this.current);
     }
 
-    openWithUrl(url) {
-        this.open(SingleView.getInventoryNumber(url, this.baseURL));
-    }
-
     fillWithData(data) {
         // eslint-disable-next-line no-undef
         const rendered = Mustache.render(this.template, {
@@ -78,16 +71,15 @@ class SingleView {
                 inventoryNumber: this.next?.inventoryNumber,
                 title: this.next?.titles[0].title,
             },
+            language: window.location.language,
         });
 
         this.root.innerHTML = rendered;
     }
 
     getData(inventoryNumber) {
-        return this.data[this.lang()].find((el) => el.inventoryNumber === inventoryNumber);
-    }
-
-    static getInventoryNumber(url, baseURL) {
-        return url.replace(baseURL, '').replace('#', '').replace('/', '').replace('/', '');
+        return this.data[window.location.language].find(
+            (el) => el.inventoryNumber === inventoryNumber,
+        );
     }
 }

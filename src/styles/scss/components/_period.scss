@@ -27,6 +27,7 @@
     justify-content: space-between;
     margin: $xl 0;
     padding: 0 $page-margin;
+    cursor: pointer;
 
     @media screen and (max-width: $bp-small) {
         background-color: $c-sec-6;

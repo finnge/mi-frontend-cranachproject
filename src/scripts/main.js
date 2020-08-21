@@ -12,26 +12,55 @@ async function fetchData(apiURL, parseJSON = true) {
     return data;
 }
 
+function isHashConform(hash) {
+    const pattern = /#\/[a-z]{2}\/([\w]+\/)?/;
+
+    return pattern.test(hash);
+}
+
+Object.defineProperty(window.location, 'language', {
+    get: () => {
+        const language = window.location.hash.match(/(?<=#\/)[a-z]{2}(?=\/)/);
+
+        return language === null ? null : language[0];
+    },
+    set: (language) => {
+        const { inventoryNumber } = window.location;
+        window.location.hash = `#/${language}/${(inventoryNumber === null) ? '' : `${inventoryNumber}/`}`;
+    },
+});
+
+Object.defineProperty(window.location, 'inventoryNumber', {
+    get: () => {
+        const inventoryNumber = window.location.hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?(?=\/)/);
+
+        return inventoryNumber === null ? null : inventoryNumber[0];
+    },
+    set: (inventoryNumber) => {
+        window.location.hash = `#/${window.location.language}/${(!inventoryNumber) ? '' : `${inventoryNumber}/`}`;
+    },
+});
+
+const config = {
+    baseURL: './',
+    singleview: {
+        root: 'singleview',
+        bg: 'background',
+        card: 'singleview__card',
+    },
+    accordion: {
+        root: 'period',
+        header: 'period-header',
+        list: 'period-list',
+        icon: 'period-header__icon',
+        collapse_all: 'settings__collapse-all',
+    },
+};
+
 /**
  * Main-Routine
  */
 (async () => {
-    const config = {
-        baseURL: 'http://localhost:5500/',
-        singleview: {
-            root: 'singleview',
-            bg: 'background',
-            card: 'singleview__card',
-        },
-        accordion: {
-            root: 'period',
-            header: 'period-header',
-            list: 'period-list',
-            icon: 'period-header__icon',
-            collapse_all: 'settings__collapse-all',
-        },
-    };
-
     const data = {
         de: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.de.json`)).items,
         en: (await fetchData(`${config.baseURL}src/data/cda-paintings-v2.en.json`)).items,
@@ -42,30 +71,42 @@ async function fetchData(apiURL, parseJSON = true) {
     };
 
     /**
+     * Defaults
+     */
+    if (!isHashConform(window.location.hash)) {
+        window.location.language = 'de';
+    }
+
+    /**
      * Single-View
      */
-    const singleview = new SingleView(config.singleview, config.baseURL, data, template.singleview);
-    window.addEventListener('hashchange', (event) => {
-        singleview?.openWithUrl(event.newURL);
+    // eslint-disable-next-line no-undef
+    const singleview = new SingleView(
+        config.singleview,
+        config.baseURL,
+        data,
+        template.singleview,
+    );
+    singleview?.open(window.location.inventoryNumber);
+    window.addEventListener('hashchange', () => {
+        singleview?.open(window.location.inventoryNumber);
     });
-    if (window.location.hash === '') {
-        window.location.hash = '#/';
-    } else {
-        singleview?.openWithUrl(window.location.hash);
-    }
 
     /**
      * Periods
      */
-    const periods = document.querySelectorAll(`.${config.root}`);
+    const periods = document.querySelectorAll(`.${config.accordion.root}`);
     const accs = [];
     const settingsElement = {
-        collapseAll: document.getElementById(config.collapse_all),
-        collapseAllLabel: document.querySelector(`label[for="${config.collapse_all}"]`),
+        collapseAll: document.getElementById(config.accordion.collapse_all),
+        collapseAllLabel: document.querySelector(`label[for="${config.accordion.collapse_all}"]`),
     };
 
+    console.log(periods);
+
     periods.forEach((el) => {
-        accs.push(new Accordion(el, config.accordion));
+        // eslint-disable-next-line no-undef
+        accs.push(new Accordion(el, config.accordion, config.language));
     });
 
     function checkForSmallViewport(vw) {
@@ -84,7 +125,7 @@ async function fetchData(apiURL, parseJSON = true) {
     });
     checkForSmallViewport(window.innerWidth);
 
-    settingsElement?.collapseAll.addEventListener('change', (event) => {
+    settingsElement?.collapseAll?.addEventListener('change', (event) => {
         if (event.target.checked) {
             settingsElement.collapseAllLabel.innerHTML = 'unfold_more';
         } else {
@@ -102,5 +143,16 @@ async function fetchData(apiURL, parseJSON = true) {
         const { value } = event.target.selectedOptions[0];
 
         htmlElement?.setAttribute('lang', value);
+        window.location.language = value;
     });
 })();
+
+
+/**
+ * - [ ] check if url fits norm => go to basic (could be smarter)
+ * - [ ] Ask for languge if hash is not to norm
+ * - [ ] url is home for language => extract language from url / change language from url
+ * - [ ] ID is home for singleview => extract ID from url / change ID from URL
+ * - [ ] change DOM from hash change => only with language (event)
+ * - [ ] change select element from hash value (event)
+ */
