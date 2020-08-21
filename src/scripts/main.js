@@ -37,12 +37,12 @@ Object.defineProperty(window.location, 'inventoryNumber', {
         return inventoryNumber === null ? null : inventoryNumber[0];
     },
     set: (inventoryNumber) => {
-        window.location.hash = `#/${window.location.language}/${inventoryNumber}/`;
+        window.location.hash = `#/${window.location.language}/${(!inventoryNumber) ? '' : `${inventoryNumber}/`}`;
     },
 });
 
 const config = {
-    baseURL: 'http://localhost:5500/',
+    baseURL: './',
     singleview: {
         root: 'singleview',
         bg: 'background',
@@ -95,12 +95,14 @@ const config = {
     /**
      * Periods
      */
-    const periods = document.querySelectorAll(`.${config.root}`);
+    const periods = document.querySelectorAll(`.${config.accordion.root}`);
     const accs = [];
     const settingsElement = {
-        collapseAll: document.getElementById(config.collapse_all),
-        collapseAllLabel: document.querySelector(`label[for="${config.collapse_all}"]`),
+        collapseAll: document.getElementById(config.accordion.collapse_all),
+        collapseAllLabel: document.querySelector(`label[for="${config.accordion.collapse_all}"]`),
     };
+
+    console.log(periods);
 
     periods.forEach((el) => {
         // eslint-disable-next-line no-undef

@@ -14,7 +14,7 @@ class Accordion {
     }
 
     init() {
-        this.icon.addEventListener('click', () => {
+        this.header.addEventListener('click', () => {
             if (this.isOpen) this.close();
             else this.open();
         });

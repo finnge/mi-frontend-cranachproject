@@ -31,7 +31,7 @@ class SingleView {
                     window.location.inventoryNumber = this.next.inventoryNumber;
                 }
             } else if (event.code === 'Escape') {
-                window.location.inventoryNumber = '';
+                window.location.inventoryNumber = null;
             }
         });
     }
