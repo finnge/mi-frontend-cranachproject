@@ -50,3 +50,28 @@
     white-space: nowrap;
     word-wrap: normal;
 }
+
+@mixin button {
+    box-model: border-box;
+    margin: $m;
+    padding: $s;
+    border: $button-border solid $lightest;
+    transition: border-width $tr-easeinoutquart $tr-medium,
+                padding $tr-easeinoutquart $tr-medium,
+                color $tr-easeinoutquart $tr-fast,
+                border-color $tr-easeinoutquart $tr-fast;
+
+    &:hover, &:focus {
+        border-color: $interaction-color;
+        color: $interaction-color;
+        border-width: $button-border-active;
+        padding: $s - $button-border-active + $button-border;
+    }
+
+    &:active {
+        border-color: $interaction-color-pressed;
+        color: $interaction-color-pressed;
+        border-width: $button-border-active;
+        padding: $s - $button-border-active + $button-border;
+    }
+}
