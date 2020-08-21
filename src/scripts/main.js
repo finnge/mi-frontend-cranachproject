@@ -32,7 +32,7 @@ Object.defineProperty(window.location, 'language', {
 
 Object.defineProperty(window.location, 'inventoryNumber', {
     get: () => {
-        const inventoryNumber = window.location.hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?/);
+        const inventoryNumber = window.location.hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?(?=\/)/);
 
         return inventoryNumber === null ? null : inventoryNumber[0];
     },
@@ -84,7 +84,6 @@ const config = {
     const singleview = new SingleView(
         config.singleview,
         config.baseURL,
-        window.location.language,
         data,
         template.singleview,
     );
@@ -142,7 +141,7 @@ const config = {
         const { value } = event.target.selectedOptions[0];
 
         htmlElement?.setAttribute('lang', value);
-        config.language(value);
+        window.location.language = value;
     });
 })();
 
