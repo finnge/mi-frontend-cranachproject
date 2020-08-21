@@ -56,11 +56,24 @@
         {{/periods}}
 
         <div class="singleview"></div>
+        <div class="lang-chooser">
+            <p class="lang-chooser__text">Bitte wählen Sie eine Sprache aus.</p>
+            <p class="lang-chooser__text lang-chooser__text--secondary">Please choose a language.</p>
+            <ul class="lang-chooser__list">
+                <li>
+                    <a href="#/de/" class="lang-chooser__bubble">Deutsch</a>
+                </li>
+                <li>
+                    <a href="#/en/" class="lang-chooser__bubble">English</a>
+                </li>
+            </ul>
+        </div>
         <div class="background"></div>
 
         <script src="https://unpkg.com/mustache@latest/mustache.min.js"></script>
         <script src="src/scripts/singleview.js" async></script>
         <script src="src/scripts/accordion.js" async></script>
+        <script src="src/scripts/langChooser.js" async></script>
         <script src="src/scripts/main.js" async></script>
     </body>
 

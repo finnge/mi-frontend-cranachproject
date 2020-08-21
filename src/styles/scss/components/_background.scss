@@ -13,5 +13,9 @@
         opacity: 1;
         pointer-events: all;
         cursor: pointer;
+
+        .lang-chooser--visible + & {
+            cursor: auto;
+        }
     }
 }

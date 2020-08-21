@@ -1,0 +1,42 @@
+.lang-chooser {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    color: $c-sec-2;
+    max-width: 90vw;
+
+    &--visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    &__text {
+        @include typo-title2;
+        text-align: center;
+        margin: 0 0 $xs 0;
+
+        &--secondary {
+            color: $c-sec-4;
+        }
+    }
+
+    &__list {
+        margin: $m 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    &__bubble {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+
+        @include button;
+
+    }
+}
