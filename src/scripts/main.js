@@ -61,6 +61,8 @@ Object.defineProperty(window.location, 'inventoryNumber', {
     },
     set: (inventoryNumber) => {
         window.location.hash = `#/${window.location.language}/${(!inventoryNumber) ? '' : `${inventoryNumber}/`}`;
+
+        window.dispatchEvent(inventoryNumberEvent);
     },
 });
 
@@ -96,6 +98,11 @@ const config = {
         singleview: await fetchData(`${config.baseURL}src/templates/singleview.mustache.html`, false),
     };
 
+    window.addEventListener('hashchange', () => {
+        window.dispatchEvent(languageEvent);
+        window.dispatchEvent(inventoryNumberEvent);
+    });
+
     /**
      * Defaults
      */
@@ -127,8 +134,6 @@ const config = {
         collapseAll: document.getElementById(config.accordion.collapse_all),
         collapseAllLabel: document.querySelector(`label[for="${config.accordion.collapse_all}"]`),
     };
-
-    console.log(periods);
 
     periods.forEach((el) => {
         // eslint-disable-next-line no-undef
@@ -167,10 +172,18 @@ const config = {
 
     langSelect?.addEventListener('change', (event) => {
         const { value } = event.target.selectedOptions[0];
-
-        htmlElement?.setAttribute('lang', value);
         window.location.language = value;
     });
+
+    function onLangChange() {
+        htmlElement?.setAttribute('lang', window.location.language);
+        langSelect.value = window.location.language;
+    }
+
+    window.addEventListener('langchange', () => {
+        onLangChange();
+    });
+    onLangChange();
 })();
 
 
