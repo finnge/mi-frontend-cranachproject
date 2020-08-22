@@ -138,15 +138,30 @@
     }
 }
 
-.artefact,
-.artefact__image {
+.artefact{
     bottom: 0;
     height: 100%;
     left: 0;
-    object-fit: cover;
-    object-position: center;
     position: absolute;
     right: 0;
     top: 0;
     width: 100%;
+    overflow: hidden;
+
+    &__image {
+        @extend .artefact;
+        object-fit: cover;
+        object-position: center;
+
+        transition: transform $tr-fast $tr-easeinoutquart;
+
+        &:hover,
+        &:focus {
+            transform: scale(105%);
+        }
+
+        &:active {
+            transform: scale(102.5%);
+        }
+    }
 }
