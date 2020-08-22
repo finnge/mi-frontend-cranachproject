@@ -16,7 +16,7 @@ class SingleView {
     }
 
     init() {
-        this.bg.addEventListener('click', (event) => {
+        this.bg.addEventListener('click', () => {
             if (window.location.language) {
                 window.location.inventoryNumber = null;
             }
@@ -40,13 +40,12 @@ class SingleView {
     open(inventoryNumber) {
         this.current = this.getData(inventoryNumber);
 
-        this.root.classList.remove(`${this.selector.root}--visible`);
-        this.bg.classList.remove(`${this.selector.bg}--visible`);
-
         if (!this.current) {
             this.currentElement = undefined;
             this.next = undefined;
             this.prev = undefined;
+            this.root.classList.remove(`${this.selector.root}--visible`);
+            this.bg.classList.remove(`${this.selector.bg}--visible`);
             return;
         }
 

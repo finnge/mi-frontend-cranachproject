@@ -119,7 +119,7 @@ const config = {
         template.singleview,
     );
     singleview?.open(window.location.inventoryNumber);
-    window.addEventListener('hashchange', () => {
+    window.addEventListener('artefactchange', () => {
         singleview?.open(window.location.inventoryNumber);
     });
 

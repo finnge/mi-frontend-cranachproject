@@ -4,6 +4,7 @@ class LangChooser {
         this.selector = selector;
         this.root = document.querySelector(`.${selector.root}`);
         this.bg = document.querySelector(`.${selector.bg}`);
+        this.isOpen = false;
 
         this.init();
     }
@@ -16,20 +17,21 @@ class LangChooser {
     }
 
     onLangChange() {
-        if (!window.location.language) {
-            this.open();
-        } else {
-            this.close();
-        }
+        if (!window.location.language) this.open();
+        else this.close();
     }
 
     open() {
+        if (this.isOpen) return;
         this.root.classList.add(`${this.selector.root}--visible`);
         this.bg.classList.add(`${this.selector.bg}--visible`);
+        this.isOpen = true;
     }
 
     close() {
+        if (!this.isOpen) return;
         this.root.classList.remove(`${this.selector.root}--visible`);
         this.bg.classList.remove(`${this.selector.bg}--visible`);
+        this.isOpen = false;
     }
 }

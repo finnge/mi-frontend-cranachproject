@@ -4,12 +4,14 @@
   "description": "Projektprüfung im Kurs \"Frontend Development\" des Schwerpunktmoduls Web-Development im Studiengang Medieninformatik (Ba.) an der TH Köln (SS 2020)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:css": "node-sass --source-map true src/styles/scss src/scss/main.scss -o src/styles/ --output-style compressed",
     "watch:sass": "node-sass --source-map true --watch src/styles/scss src/scss/main.scss -o src/styles/ --output-style compressed",
-    "watch": "npm-run-all --parallel dev:css watch:*",
-    "lint": "npx stylelint **/*.scss",
-    "build": "node helper/static-page-generator.js"
+    "watch": "npm-run-all --parallel build:css watch:*",
+    "test:scss": "npx stylelint **/*.scss",
+    "test:js": "npx stylelint **/*.js",
+    "test": "npm-run-all --parallel test:*",
+    "build:css": "node-sass --source-map true src/styles/scss src/scss/main.scss -o src/styles/ --output-style compressed",
+    "build:html": "node helper/static-page-generator.js",
+    "build": "npm-run-all --parallel build:*"
   },
   "repository": {
     "type": "git",
