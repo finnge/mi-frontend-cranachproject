@@ -13,11 +13,24 @@ Campus Gummersbach
 
 ## Das Projekt
 
-Das Pro
+Die Seiten für die Cranach Digital Archive wird mit Hilfe eines eigenen [Static Page Generator (SPG)](https://github.com/mi-classroom/miniprojekt-finnge/blob/master/helper/static-page-generator.js) erzeugt. So wird ein Großteil der Build-Time ausgelagert und der Browser fordert nur eine statische Seite an. Dies hat den Vorteil, dass die Seite schnell lädt und Artefakte bei Bedarf automatisch ausgetauscht werden können. Die Wahl viel auf einen eigenen Page Builder, da nur eine HTML-Datei auf Grundlage von zwei JSON-Dateien gebaut werden sollte. Der SPG filtert nicht-funktionierende Datensätze, sortiert und gruppiert die Artefakte und baut die HTML-Datei mit Hilfe von [Mustache.js](https://mustache.github.io/) auf.
+
+Alle genauere Daten, die von den Single-View gebraucht werden, werden nach einem erfolgreichen ersten Content Paint des Browsers geladen, indem die JSON per `fetch()` angesprochen werden. Ich habe mich dazu entschieden Pseudo-Permalinks mit Hilfe des Hash-Wertes zu generieren, um Bilder und Sprache direkt anwählbar zu machen. So entsteht auch eine History mit bereits geöffneten Artefakten.
+
+[Deployment anzeigen](https://mi-classroom.github.io/miniprojekt-finnge/)
 
 ### Anforderungen 📋
 
-- [x] wow 
+- [x] Lauffähig auf [GitHub.io](https://mi-classroom.github.io/miniprojekt-finnge/)
+- [x] valider HTML-Code
+- [x] Responsiveness
+- [x] Gemäldeübersicht unterteilt in Jahre
+- [x] Akkordion
+- [x] Schließen aller Jahre bei mobile
+- [x] Single View (Detailansicht)
+- [x] Navigation über Single View
+- [x] Sprachwechsler
+
 
 ### Addons 🤩
 
