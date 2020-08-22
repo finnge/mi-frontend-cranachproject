@@ -1,14 +1,14 @@
 .lang-chooser {
     position: fixed;
+    z-index: 3;
     top: 50%;
     left: 50%;
-    z-index: 3;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: calc(100vw - 20px * 2);
+    color: $c-sec-2;
     opacity: 0;
     pointer-events: none;
-    color: $c-sec-2;
-    max-width: calc(100vw - 20px * 2);
-    width: 100%;
+    transform: translate(-50%, -50%);
 
     &--visible {
         opacity: 1;
@@ -17,8 +17,8 @@
 
     &__text {
         @include typo-title2;
-        text-align: center;
         margin: 0 0 $xs 0;
+        text-align: center;
 
         &--secondary {
             color: $c-sec-4;
@@ -26,16 +26,16 @@
     }
 
     &__list {
-        margin: $m 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        margin: $m 0;
     }
 
     &__bubble {
         display: block;
-        text-decoration: none;
         color: inherit;
+        text-decoration: none;
 
         @include button;
 

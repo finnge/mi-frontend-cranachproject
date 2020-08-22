@@ -35,8 +35,8 @@
 }
 
 @mixin material-icon {
-    direction: ltr;
     display: inline-block;
+    direction: ltr;
     font-family: 'Material Icons';
     font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
@@ -52,26 +52,26 @@
 }
 
 @mixin button {
-    box-model: border-box;
-    margin: $m;
     padding: $s;
     border: $button-border solid $lightest;
+    margin: $m;
+    box-model: border-box;
     transition: border-width $tr-easeinoutquart $tr-medium,
-                padding $tr-easeinoutquart $tr-medium,
-                color $tr-easeinoutquart $tr-fast,
-                border-color $tr-easeinoutquart $tr-fast;
+        padding $tr-easeinoutquart $tr-medium,
+        color $tr-easeinoutquart $tr-fast,
+        border-color $tr-easeinoutquart $tr-fast;
 
     &:hover, &:focus {
+        padding: $s - $button-border-active + $button-border;
+        border-width: $button-border-active;
         border-color: $interaction-color;
         color: $interaction-color;
-        border-width: $button-border-active;
-        padding: $s - $button-border-active + $button-border;
     }
 
     &:active {
+        padding: $s - $button-border-active + $button-border;
+        border-width: $button-border-active;
         border-color: $interaction-color-pressed;
         color: $interaction-color-pressed;
-        border-width: $button-border-active;
-        padding: $s - $button-border-active + $button-border;
     }
 }

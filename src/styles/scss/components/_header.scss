@@ -1,17 +1,17 @@
 .page-header {
-    background-color: $background-color;
-    border-bottom: $border-width solid $darkest;
-    left: 0;
     position: fixed;
-    right: 0;
-    top: 0;
     z-index: 1;
+    top: 0;
+    right: 0;
+    left: 0;
+    border-bottom: $border-width solid $darkest;
+    background-color: $background-color;
 
     @media screen and (max-width: $bp-small) {
-        bottom: 0;
         top: auto;
-        border-bottom: none;
+        bottom: 0;
         border-top: $border-width solid $darkest;
+        border-bottom: none;
 
         &__lang {
             display: none;
@@ -19,12 +19,12 @@
     }
 
     &__inner {
-        align-items: center;
         display: flex;
-        justify-content: space-between;
-        margin: 0 auto;
         max-width: $content-width;
+        align-items: center;
+        justify-content: space-between;
         padding: $m $page-margin;
+        margin: 0 auto;
     }
 
     &__title {
@@ -33,8 +33,8 @@
 
     &__button {
         @include material-icon;
-        font-size: $xl;
         cursor: pointer;
+        font-size: $xl;
 
         & + input[type="checkbox"] {
             display: none;

@@ -84,14 +84,11 @@ time,
 mark,
 audio,
 video {
-
+    padding: 0;
     border: 0;
+    margin: 0;
     font: inherit;
     font-size: 100%;
-
-    margin: 0;
-    padding: 0;
-
     vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -139,11 +136,11 @@ table {
 button,
 input,
 textarea {
-    background-color: transparent;
+    padding: 0;
 
     border: none;
     margin: 0;
-    padding: 0;
+    background-color: transparent;
 
     &:active,
     &:focus {

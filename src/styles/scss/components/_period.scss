@@ -1,7 +1,7 @@
 // Parent
 .period {
-    margin: 0 auto;
     max-width: $content-width + 2 * $page-margin;
+    margin: 0 auto;
     
     @media screen and (min-width: $bp-small) {
         &:first-of-type {
@@ -22,24 +22,24 @@
 
 // Header
 .period-header {
-    align-items: center;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    margin: $xl 0;
     padding: 0 $page-margin;
+    margin: $xl 0;
     cursor: pointer;
 
     @media screen and (max-width: $bp-small) {
-        background-color: $c-sec-6;
-        color: $lightest;
         padding: $s $page-margin;
         margin: 0 0 $grid-space-small 0;
+        background-color: $c-sec-6;
+        color: $lightest;
     }
 
     &__year {
         @include typo-header1;
-        margin-right: $l;
         order: 0;
+        margin-right: $l;
 
         @media screen and (max-width: $bp-small) {
             @include typo-title2;
@@ -48,18 +48,18 @@
 
     &__meta {
         @include typo-meta;
-        align-items: center;
-        color: $c-sec-4;
         display: flex;
-        margin: 0 $l;
+        align-items: center;
         order: 3;
+        margin: 0 $l;
+        color: $c-sec-4;
 
         &::before {
             @include material-icon;
-            content: 'image';
             display: inline-block;
-            font-size: $l;
             margin-right: $xxs;
+            content: 'image';
+            font-size: $l;
         }
 
         @media screen and (max-width: $bp-small) {
@@ -69,10 +69,10 @@
 
     &__icon {
         @include material-icon;
-        font-size: $xl;
-        margin-left: $l;
         order: 4;
+        margin-left: $l;
         cursor: pointer;
+        font-size: $xl;
 
         @media screen and (max-width: $bp-small) {
             display: none;
@@ -81,10 +81,10 @@
 
     &::before,
     &::after {
-        border-bottom: 1px solid $c-sec-4;
-        content: '';
         display: block;
         width: 100%;
+        border-bottom: 1px solid $c-sec-4;
+        content: '';
 
         @media screen and (max-width: $bp-small) {
             content: none;
@@ -103,19 +103,19 @@
 // List
 .period-list {
     display: grid;
+    overflow: hidden;
+    padding: 0 $page-margin;
     grid-auto-flow: row;
     grid-auto-rows: 1fr;
     grid-column-gap: $grid-space-big;
     grid-row-gap: $grid-space-big;
     grid-template-columns: repeat(6, 1fr);
-    overflow: hidden;
-    padding: 0 $page-margin;
 
     @media screen and (max-width: $bp-small) {
         padding: 0;
         margin-bottom: $grid-space-small;
-        grid-row-gap: $grid-space-small;
         grid-column-gap: $grid-space-small;
+        grid-row-gap: $grid-space-small;
         grid-template-columns: repeat(3, 1fr);
     }
 
@@ -123,9 +123,9 @@
         position: relative;
         
         &::before {
-            content: '';
             display: block;
             padding-bottom: 100%;
+            content: '';
         }
     }
 
@@ -139,14 +139,14 @@
 }
 
 .artefact{
-    bottom: 0;
-    height: 100%;
-    left: 0;
     position: absolute;
-    right: 0;
     top: 0;
-    width: 100%;
+    right: 0;
+    bottom: 0;
+    left: 0;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
 
     &__image {
         @extend .artefact;
