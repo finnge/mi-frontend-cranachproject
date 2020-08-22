@@ -14,8 +14,11 @@ class Accordion {
 
     init() {
         this.header.addEventListener('click', () => {
-            if (this.isOpen) this.close();
-            else this.open();
+            this.switchState();
+        });
+
+        this.header.addEventListener('keydown', (event) => {
+            if (event.code === 'Enter') this.switchState();
         });
 
         // language
@@ -32,6 +35,11 @@ class Accordion {
                 this.open();
             }
         });
+    }
+
+    switchState() {
+        if (this.isOpen) this.close();
+        else this.open();
     }
 
     open() {
