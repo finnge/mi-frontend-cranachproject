@@ -60,6 +60,106 @@ class SingleView {
     }
 
     fillWithData(data) {
+        const { language } = window.location;
+
+        function replaceReferences(string) {
+            return string.replace(/\[(.)+\]/, '<span class="singleview__text--cite">$&</span>');
+        }
+
+        function getTranslation(key, lang) {
+            if (lang === 'de') {
+                switch (key) {
+                case 'title':
+                    return 'Alternative Titel';
+                case 'inventoryNumber':
+                    return 'ID';
+                case 'dimensions':
+                    return 'Maße';
+                case 'repository':
+                    return 'Eigentümer';
+                case 'owner':
+                    return 'Besitzer';
+                case 'location':
+                    return 'Ort';
+                case 'involvedPersons':
+                    return 'Zuschreibungen';
+                default:
+                    return '';
+                }
+            } else if (lang === 'en') {
+                switch (key) {
+                case 'title':
+                    return 'Alternative Titles';
+                case 'inventoryNumber':
+                    return 'ID';
+                case 'dimensions':
+                    return 'Dimensions';
+                case 'repository':
+                    return 'Repository';
+                case 'owner':
+                    return 'Owner';
+                case 'location':
+                    return 'Locations';
+                case 'involvedPersons':
+                    return 'Involved Persons';
+                default:
+                    return '';
+                }
+            }
+            return '';
+        }
+
+        const metaTable = [
+            {
+                key: getTranslation('title', language),
+                value: () => {
+                    let tmp = '';
+
+                    data.titles.forEach((e, i) => {
+                        if (i === 0) return;
+
+                        tmp += (i === 1) ? '' : ', ';
+                        tmp += e.title;
+                        tmp += (!e.remarks) ? '' : ` ${e.remarks}`;
+                    });
+
+                    return tmp;
+                },
+            },
+            {
+                key: getTranslation('involvedPersons', language),
+                value: () => {
+                    let tmp = '';
+
+                    data.involvedPersons.forEach((e, i) => {
+                        if (i === 0) return;
+
+                        tmp += (i === 1) ? '' : ', ';
+                        tmp += e.name;
+                        tmp += (!e.remarks) ? '' : ` ${e.remarks}`;
+                    });
+
+                    return tmp;
+                },
+            },
+            {
+                key: getTranslation('dimensions', language),
+                value: replaceReferences(data.dimensions),
+            }, {
+                key: getTranslation('inventoryNumber', language),
+                value: replaceReferences(data.inventoryNumber),
+            }, {
+                key: getTranslation('repository', language),
+                value: replaceReferences(data.repository),
+            }, {
+                key: getTranslation('owner', language),
+                value: replaceReferences(data.owner),
+            }, {
+                key: getTranslation('location', language),
+                value: replaceReferences(data.owner),
+            },
+        ];
+
         // eslint-disable-next-line no-undef
         const rendered = Mustache.render(this.template, {
             ...data,
@@ -71,10 +171,11 @@ class SingleView {
                 inventoryNumber: this.next?.inventoryNumber,
                 title: this.next?.titles[0].title,
             },
-            language: window.location.language,
+            language,
+            metaTable,
         });
 
-        this.root.innerHTML = rendered;
+        this.root.innerHTML = replaceReferences(rendered);
     }
 
     getData(inventoryNumber) {
