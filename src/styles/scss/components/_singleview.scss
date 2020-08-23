@@ -12,7 +12,7 @@
     background-color: $c-sec-6;
     color: $lightest;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto auto  1fr auto;
     opacity: 0;
     pointer-events: none;
     transform: translate(-50%, -50%);
@@ -20,7 +20,7 @@
     @media screen and (max-width: $bp-small) {
         height: 100vh;
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto 100%;
+        grid-template-rows: auto auto auto auto 1fr;
     }
 
     &--visible {
@@ -31,7 +31,7 @@
     &__artefact {
         background-color: $darkest;
         grid-column: 1 / 1;
-        grid-row: 1 / span 3;
+        grid-row: 1 / span 4;
 
         @media screen and (max-width: $bp-small) {
             height: 40vh;
@@ -77,18 +77,36 @@
         margin: 0 $m;
         margin-bottom: 0;
         overflow-y: scroll;
-    }
 
-    &__meta {
-        @include typo-meta;
+        &--cite {
+            color: $c-sec-4;
+        }
+
+        &--meta {
+            text-align: left;
+
+            & th, & td {
+                padding-bottom: $xs;
+            }
+
+            & th {
+                width: 30%;
+            }
+        }
     }
 
     &__title {
         @include typo-title;
-        padding: $m;
+        padding: $m $m 0 $m;
 
         @media screen and (max-width: $bp-small) {
+            padding-top: 0;
             grid-row: 3 / 3;
         }
+    }
+
+    &__subtitle {
+        @include typo-title2;
+        padding: 0 $m;
     }
 }

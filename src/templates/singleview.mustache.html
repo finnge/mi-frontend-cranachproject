@@ -11,14 +11,21 @@
     <img src="{{ images.sizes.l.src }}" alt="{{ titles.0.title }}" class="singleview__image">
 </div>
 <h2 class="singleview__title">{{ titles.0.title }}</h2>
+<p class="singleview__subtitle">{{ classification.classification }}, {{ locations.0.term }}, {{ dating.dated }}</p>
 <div class="singleview__text">
-    <p>
+    <p class="singleview__text--description">
         {{ description }}
     </p>
-    <div class="singleview__meta">
-        {{ dimensions}} <br>
-        {{ sortingNumber }}
-    </div>
+    <table class="singleview__text--meta">
+        {{#metaTable}}
+        {{#value}}
+        <tr>
+            <th>{{ key }}</th>
+            <td>{{ value }}</td>
+        </tr>
+        {{/value}}
+        {{/metaTable}}
+    </table>
 </div>
 <div class="singleview__controls">
     <a class="singleview__back" href="#/{{ language }}/{{ prev.inventoryNumber }}/" title="{{ prev.title }}">
