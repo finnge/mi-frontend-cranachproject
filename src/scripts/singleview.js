@@ -156,7 +156,18 @@ class SingleView {
                 value: data.owner,
             }, {
                 key: getTranslation('location', language),
-                value: data.owner,
+                value: () => {
+                    let tmp = '';
+
+                    data.locations.forEach((e, i) => {
+                        if (i === 0) return;
+
+                        tmp += (i === 1) ? '' : ' / ';
+                        tmp += e.term;
+                    });
+
+                    return tmp;
+                },
             },
         ];
 
@@ -175,7 +186,10 @@ class SingleView {
             metaTable,
         });
 
-        this.root.innerHTML = replaceReferences(rendered);
+        this.root.innerHTML = rendered;
+
+        const singleView = this.root.querySelector('.singleview__text');
+        singleView.innerHTML = replaceReferences(singleView.innerHTML);
     }
 
     getData(inventoryNumber) {
