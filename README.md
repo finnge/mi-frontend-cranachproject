@@ -56,7 +56,7 @@ Alle genauere Daten, die von den Single-View gebraucht werden, werden nach einem
 - Schließ-Icon bei Single View wurde auf die linke Seite verschoben. \
 *GRUND: So ist kein Platz für den Titel (der sehr lang seien kann) verschwendet.*
 
-- Der Aufbau der Single Card wurde angepasst. \
+- Der Aufbau der Single Card wurde angepasst. ([#19](https://github.com/mi-classroom/miniprojekt-finnge/pull/19))\
 *GRUND: Mehr Platz für weitere Daten über das Artefakt.*
 
 ## NPM Befehle
