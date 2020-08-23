@@ -63,7 +63,7 @@ class SingleView {
         const { language } = window.location;
 
         function replaceReferences(string) {
-            return string.replace(/\[(.)+\]/, '<span class="singleview__text--cite">$&</span>');
+            return string.replace(/\[[^([)(\])]+\]/g, '<span class="singleview__text--cite">$&</span>');
         }
 
         function getTranslation(key, lang) {
@@ -144,19 +144,19 @@ class SingleView {
             },
             {
                 key: getTranslation('dimensions', language),
-                value: replaceReferences(data.dimensions),
+                value: data.dimensions,
             }, {
                 key: getTranslation('inventoryNumber', language),
-                value: replaceReferences(data.inventoryNumber),
+                value: data.inventoryNumber,
             }, {
                 key: getTranslation('repository', language),
-                value: replaceReferences(data.repository),
+                value: data.repository,
             }, {
                 key: getTranslation('owner', language),
-                value: replaceReferences(data.owner),
+                value: data.owner,
             }, {
                 key: getTranslation('location', language),
-                value: replaceReferences(data.owner),
+                value: data.owner,
             },
         ];
 
