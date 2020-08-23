@@ -75,7 +75,7 @@ Sass/SCSS watchen
 npm run watch
 ```
 
-Builden des HTML und des Sass/CSS
+Builden des HTML und des Sass/SCSS
 
 ```bash
 npm run build
