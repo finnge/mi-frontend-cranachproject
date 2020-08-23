@@ -20,7 +20,7 @@
     @media screen and (max-width: $bp-small) {
         height: 100vh;
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto 100%;
+        grid-template-rows: auto auto auto auto 1fr;
     }
 
     &--visible {
@@ -77,6 +77,22 @@
         margin: 0 $m;
         margin-bottom: 0;
         overflow-y: scroll;
+
+        &--cite {
+            color: $c-sec-4;
+        }
+
+        &--meta {
+            text-align: left;
+
+            & th, & td {
+                padding-bottom: $xs;
+            }
+
+            & th {
+                width: 30%;
+            }
+        }
     }
 
     &__title {
@@ -84,6 +100,7 @@
         padding: $m $m 0 $m;
 
         @media screen and (max-width: $bp-small) {
+            padding-top: 0;
             grid-row: 3 / 3;
         }
     }
