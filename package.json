@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/mi-classroom/miniprojekt-finnge#readme",
   "devDependencies": {
-    "eslint": "^7.7.0",
+    "eslint": "^7.8.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-vue": "^6.2.2",
