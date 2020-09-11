@@ -36,5 +36,6 @@ input {
     &[type="submit"] {
         background-color: $c-sec-6;
         color: $lightest;
+        cursor: pointer;
     }
 }
