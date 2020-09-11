@@ -15,7 +15,7 @@
 
     @media screen and (max-width: $bp-small) {
         &:last-of-type {
-            margin-bottom: $m * 2 + $xl + $border-width + $xxl;
+            margin-bottom: $m * 2 + $xl;
         }
     }
 }

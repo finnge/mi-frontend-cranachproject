@@ -23,3 +23,18 @@ select {
     padding: ($xxs / 2) 0;
     border-color: $c-sec-4;
 }
+
+input {
+    padding: $xxs;
+    border-color: $c-sec-4;
+
+    &[type="text"], &[type="password"]{
+        border-width: 1px;
+        border-style: solid;
+    }
+
+    &[type="submit"] {
+        background-color: $c-sec-6;
+        color: $lightest;
+    }
+}

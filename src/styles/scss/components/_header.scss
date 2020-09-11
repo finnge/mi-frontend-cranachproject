@@ -4,23 +4,37 @@
     top: 0;
     right: 0;
     left: 0;
+    max-height: 100vw;
     border-bottom: $border-width solid $darkest;
     background-color: $background-color;
+    transition: all $tr-easeinoutquart $tr-medium;
 
     @media screen and (max-width: $bp-small) {
         top: auto;
         bottom: 0;
-        border-top: $border-width solid $darkest;
         border-bottom: none;
 
         &__lang {
             display: none;
         }
+
+        &--open {
+            top: 0;
+
+            label[for='settings__collapse-all'] {
+                display: none;
+            }
+        }
+    }
+
+    &--open .settings {
+        display: grid;
     }
 
     &__inner {
         display: flex;
         max-width: $content-width;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
         padding: $m $page-margin;
@@ -39,6 +53,12 @@
         & + input[type="checkbox"] {
             display: none;
         }
+    }
+
+    &__settings {
+        @include material-icon;
+        cursor: pointer;
+        font-size: $xl;
     }
 }
 
