@@ -21,6 +21,7 @@
     &__inner {
         display: flex;
         max-width: $content-width;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
         padding: $m $page-margin;
@@ -39,6 +40,12 @@
         & + input[type="checkbox"] {
             display: none;
         }
+    }
+
+    &__settings {
+        @include material-icon;
+        cursor: pointer;
+        font-size: $xl;
     }
 }
 

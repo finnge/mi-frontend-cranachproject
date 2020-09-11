@@ -1,0 +1,53 @@
+.settings {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 1fr;
+    grid-column-gap: $grid-space-big;
+    grid-row-gap: $grid-space-big;
+    grid-template-columns: repeat(6, 1fr);
+
+    &__about {
+        grid-column: 1 / span 4;
+
+        & p{
+            margin: $m 0;
+            line-height: $lh-default;
+        }
+    }
+
+    &__form {
+        grid-column: 5 / span 2;
+    }
+
+    &__element {
+        display: grid;
+        padding: $m 0;
+        border-bottom: $border-width solid $c-sec-4;
+        grid-auto-flow: row;
+        grid-auto-rows: 1fr;
+        grid-column-gap: $grid-space-big;
+        grid-row-gap: $grid-space-big;
+        grid-template-columns: repeat(2, 1fr);
+
+        &-title {
+            align-self: center;
+            font-weight: $fw-bold;
+            justify-self: start;
+
+            &--full {
+                grid-column: span 2;
+            }
+        }
+
+        &-input {
+            align-self: center;
+            justify-self: end;
+        }
+
+        
+    }
+
+    &__element:last-child {
+        border-bottom: none;
+    }
+}

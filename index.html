@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <header class="page-header">
+        <header class="page-header page-header--open">
             <div class="page-header__inner">
                 <h1 class="page-header__title">CDA_</h1>
                 <button class="page-header__settings">menu</button>
@@ -43,26 +43,28 @@
                     </div>
                     <div class="settings__form">
                         <div class="settings__element">
-                            <label for="settings__darkmode">Darkmode</label>
-                            <input type="checkbox" name="settings__darkmode" checked id="settings__darkmode">
+                            <label class="settings__element-title" for="settings__darkmode">Darkmode</label>
+                            <input class="settings__element-input" type="checkbox" name="settings__darkmode" checked
+                                id="settings__darkmode">
                         </div>
                         <div class="settings__element">
-                            <label for="settings__preview-size">Vorschaubilder</label>
-                            <select name="settings__preview-size" id="settings__preview-size">
+                            <label class="settings__element-title" for="settings__preview-size">Vorschaubilder</label>
+                            <select class="settings__element-input" name="settings__preview-size"
+                                id="settings__preview-size">
                                 <option value="small" selected>klein</option>
                                 <option value="medium">mittel</option>
-                                <option value="big">mittel</option>
+                                <option value="big">groß</option>
                             </select>
                         </div>
                         <div class="settings__element">
-                            <label for="settings__language">Vorschaubilder</label>
-                            <select name="settings__language" id="settings__language">
+                            <label class="settings__element-title" for="settings__language">Sprache</label>
+                            <select class="settings__element-input" name="settings__language" id="settings__language">
                                 <option value="de" selected>Deutsch</option>
                                 <option value="en">English</option>
                             </select>
                         </div>
                         <form action="" method="post" class="settings__element">
-                            <h4>Login</h4>
+                            <h4 class="settings__element-title settings__element-title--full">Login</h4>
                             <input type="text" id="login__username" name="login__username" placeholder="Nutzername">
                             <input type="password" id="login__password" name="login__password" placeholder="Passwort">
                             <input type="submit" value="einloggen">
