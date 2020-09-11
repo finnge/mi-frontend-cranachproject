@@ -51,6 +51,19 @@ Alle genauere Daten, die von den Single-View gebraucht werden, werden nach einem
 - [x] **Filterung von nicht-funktionierenden Bildern ([#14](https://github.com/mi-classroom/miniprojekt-finnge/pull/14))**
 - Bilder, die nicht existieren werden zur Build-Time des HTML-Dokuments herausgefiltert. Ich habe hier die Variante gewählt, dass geguckt wird ob die maximale Größe des Bildes gleich 0 ist, um die Zeit des bauens zu veringern und keinen `fetch` zu schicken.
 
+### Live-Coding Challenge ⏳
+
+- [x] **Menü ([#23](https://github.com/mi-classroom/miniprojekt-finnge/pull/23), [#25](https://github.com/mi-classroom/miniprojekt-finnge/pull/25))**
+- Das Menü öffnet sich über der Timeline
+- Language und Sizer funktionieren. Der Rest ist Dummy
+- Der Text ändert sich nicht in Abhänigkeit der Sprache
+- [x] **Resizing ([#24](https://github.com/mi-classroom/miniprojekt-finnge/pull/24), [#25](https://github.com/mi-classroom/miniprojekt-finnge/pull/25))**
+- Einstellmöglichkeit von `klein`, `mittel`, `groß`
+- Über Klassen-Änderung der Elemente werden die Anzahl der Spalten im Grid angepasst und so die Größe der Bilder verändert.
+- [x] **EXTRA FIX ([#23][https://github.com/mi-classroom/miniprojekt-finnge/pull/23])**
+- Die RegEx wurden für den Safari-Support angepasst
+
+
 ### Bewusste Änderungen gegenüber Style-Guide/Vorgabe 🎨
 - Icons sind von [Material Design](https://material.io/resources/icons/) als Schrift eingebunden. \
 *GRUND: Größere Auswahl. Die genauen Icons standen nicht zur Verfügung.*
