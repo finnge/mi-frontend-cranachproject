@@ -35,6 +35,12 @@ class Accordion {
                 this.open();
             }
         });
+
+        // change size
+        document.getElementById(this.selector.preview_size).addEventListener('change', (event) => {
+            const { value } = event.target.selectedOptions[0];
+            this.onSizeChange(value);
+        });
     }
 
     switchState() {
@@ -66,5 +72,14 @@ class Accordion {
             artefact.setAttribute('href', `#/${window.location.language}/${inventoryNumber}/`);
             artefactImage.setAttribute('alt', newTitle);
         });
+    }
+
+    onSizeChange(newSize) {
+        this.list.classList.remove(`${this.selector.list}--big`);
+        this.list.classList.remove(`${this.selector.list}--medium`);
+
+        if (newSize !== 'small') {
+            this.list.classList.add(`${this.selector.list}--${newSize}`);
+        }
     }
 }
