@@ -83,6 +83,7 @@ const config = {
         list: 'period-list',
         icon: 'period-header__icon',
         collapse_all: 'settings__collapse-all',
+        preview_size: 'settings__preview-size',
     },
     langChooser: {
         root: 'lang-chooser',
