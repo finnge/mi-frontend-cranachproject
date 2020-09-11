@@ -1,14 +1,6 @@
-/**
- * 
- */
 const languageEvent = new Event('langchange');
 const inventoryNumberEvent = new Event('artefactchange');
 
-/**
- * 
- * @param {*} apiURL 
- * @param {*} parseJSON 
- */
 async function fetchData(apiURL, parseJSON = true) {
     const response = await fetch(apiURL);
     if (!response.ok) {
@@ -23,19 +15,12 @@ async function fetchData(apiURL, parseJSON = true) {
     return data;
 }
 
-/**
- * 
- * @param {*} hash 
- */
 function isHashConform(hash) {
     const pattern = /#\/[a-z]{2}\/([\w]+\/)?/;
 
     return pattern.test(hash);
 }
 
-/**
- * 
- */
 Object.defineProperty(window.location, 'language', {
     get: () => {
         const language = window.location.hash.match(/(?<=#\/)[a-z]{2}(?=\/)/);
@@ -50,9 +35,6 @@ Object.defineProperty(window.location, 'language', {
     },
 });
 
-/**
- * 
- */
 Object.defineProperty(window.location, 'inventoryNumber', {
     get: () => {
         const inventoryNumber = window.location.hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?(?=\/)/);
@@ -67,9 +49,6 @@ Object.defineProperty(window.location, 'inventoryNumber', {
     },
 });
 
-/**
- * 
- */
 const config = {
     baseURL: './',
     singleview: {
@@ -128,9 +107,9 @@ const config = {
      */
     const periods = document.querySelectorAll(`.${config.accordion.root}`);
     const accs = [];
-    const settingsElement = {
-        collapseAll: document.getElementById(config.accordion.collapse_all),
-        collapseAllLabel: document.querySelector(`label[for="${config.accordion.collapse_all}"]`),
+    const collapseAll = {
+        self: document.getElementById(config.accordion.collapse_all),
+        label: document.querySelector(`label[for="${config.accordion.collapse_all}"]`),
     };
 
     periods.forEach((el) => {
@@ -154,11 +133,11 @@ const config = {
     });
     checkForSmallViewport(window.innerWidth);
 
-    settingsElement?.collapseAll?.addEventListener('change', (event) => {
+    collapseAll.self.addEventListener('change', (event) => {
         if (event.target.checked) {
-            settingsElement.collapseAllLabel.innerHTML = 'unfold_more';
+            collapseAll.self.innerHTML = 'unfold_more';
         } else {
-            settingsElement.collapseAllLabel.innerHTML = 'unfold_less';
+            collapseAll.self.innerHTML = 'unfold_less';
         }
     });
 
@@ -166,17 +145,18 @@ const config = {
      * Language
      */
     const htmlElement = document.querySelector('html');
-    const langSelect = document.querySelector('.page-header__lang');
+    const langSelect = document.getElementById('settings__language');
     // eslint-disable-next-line no-undef
+    // eslint-disable-next-line no-unused-vars
     const langChooser = new LangChooser(config.langChooser);
 
-    langSelect?.addEventListener('change', (event) => {
+    langSelect.addEventListener('change', (event) => {
         const { value } = event.target.selectedOptions[0];
         window.location.language = value;
     });
 
     function onLangChange() {
-        htmlElement?.setAttribute('lang', window.location.language);
+        htmlElement.setAttribute('lang', window.location.language);
         langSelect.value = window.location.language;
     }
 
@@ -184,4 +164,20 @@ const config = {
         onLangChange();
     });
     onLangChange();
+
+    /**
+     * Menu
+     */
+    const menuSwitcher = document.querySelector('.page-header__settings');
+    const header = document.querySelector('.page-header');
+
+    menuSwitcher.addEventListener('click', () => {
+        header.classList.toggle('page-header--open');
+
+        if (header.classList.contains('page-header--open')) {
+            menuSwitcher.innerHTML = 'close';
+        } else {
+            menuSwitcher.innerHTML = 'menu';
+        }
+    });
 })();

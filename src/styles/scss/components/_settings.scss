@@ -1,5 +1,5 @@
 .settings {
-    display: grid;
+    display: none;
     grid-auto-flow: row;
     grid-auto-rows: 1fr;
     grid-column-gap: $grid-space-big;
@@ -30,7 +30,8 @@
 
     &__element {
         display: grid;
-        padding: $m 0;
+        padding-bottom: $m;
+        margin-top: $m;
         border-bottom: $border-width solid $c-sec-4;
         grid-auto-flow: row;
         grid-auto-rows: 1fr;
@@ -42,15 +43,15 @@
             align-self: center;
             font-weight: $fw-bold;
             justify-self: start;
-
-            &--full {
-                grid-column: span 2;
-            }
         }
 
         &-input {
             align-self: center;
             justify-self: end;
+        }
+
+        &--onecol {
+            grid-template-columns: repeat(1, 1fr);
         }
 
 

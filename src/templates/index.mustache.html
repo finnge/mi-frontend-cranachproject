@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <header class="page-header page-header--open">
+        <header class="page-header">
             <div class="page-header__inner">
                 <h1 class="page-header__title">CDA_</h1>
                 <button class="page-header__settings">menu</button>
@@ -63,13 +63,17 @@
                                 <option value="en">English</option>
                             </select>
                         </div>
-                        <form action="" method="post" class="settings__element">
-                            <h4 class="settings__element-title settings__element-title--full">Login</h4>
+                        <form action="" method="post" class="settings__element settings__element--onecol">
+                            <h4 class="settings__element-title">Login</h4>
                             <input type="text" id="login__username" name="login__username" placeholder="Nutzername">
                             <input type="password" id="login__password" name="login__password" placeholder="Passwort">
                             <input type="submit" value="einloggen">
-                            <label for="login__remember">angemeldet bleiben</label>
-                            <input type="checkbox" name="login__remember" checked id="login__remember">
+                            <label for="login__remember">
+                                <input type="checkbox" name="login__remember" checked
+                                    id="login__remember">
+                                    angemeldet bleiben
+                            </label>
+                            
                         </form>
                     </div>
                 </div>

@@ -6,16 +6,24 @@
     left: 0;
     border-bottom: $border-width solid $darkest;
     background-color: $background-color;
+    transition: all $tr-easeinoutquart $tr-medium;
 
     @media screen and (max-width: $bp-small) {
         top: auto;
         bottom: 0;
-        border-top: $border-width solid $darkest;
         border-bottom: none;
 
         &__lang {
             display: none;
         }
+
+        &--open {
+            top: 0;
+        }
+    }
+
+    &--open .settings {
+        display: grid;
     }
 
     &__inner {

@@ -25,7 +25,7 @@ select {
 }
 
 input {
-    padding: ($xxs / 2) 0;
+    padding: $xxs;
     border-color: $c-sec-4;
 
     &[type="text"], &[type="password"]{
