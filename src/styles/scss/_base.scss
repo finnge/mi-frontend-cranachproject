@@ -22,20 +22,22 @@ p {
 select {
     padding: ($xxs / 2) 0;
     border-color: $c-sec-4;
+    cursor: pointer;
 }
 
 input {
     padding: $xxs;
     border-color: $c-sec-4;
+    cursor: pointer;
 
     &[type="text"], &[type="password"]{
         border-width: 1px;
         border-style: solid;
+        cursor: text;
     }
 
     &[type="submit"] {
         background-color: $c-sec-6;
         color: $lightest;
-        cursor: pointer;
     }
 }

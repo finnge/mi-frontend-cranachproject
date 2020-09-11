@@ -15,15 +15,12 @@ async function fetchData(apiURL, parseJSON = true) {
     return data;
 }
 
-function isHashConform(hash) {
-    const pattern = /#\/[a-z]{2}\/([\w]+\/)?/;
-
-    return pattern.test(hash);
-}
-
 Object.defineProperty(window.location, 'language', {
     get: () => {
-        const language = window.location.hash.match(/(?<=#\/)[a-z]{2}(?=\/)/);
+        const regexPre = new RegExp('#/');
+        const prelessHash = window.location.hash.replace(regexPre, '');
+        const regexLang = new RegExp('[a-z]{2}(?=/)');
+        const language = prelessHash.match(regexLang);
 
         return language === null ? null : language[0];
     },
@@ -37,7 +34,10 @@ Object.defineProperty(window.location, 'language', {
 
 Object.defineProperty(window.location, 'inventoryNumber', {
     get: () => {
-        const inventoryNumber = window.location.hash.match(/(?<=#\/[a-z]{2}\/)([\w-]+)?(?=\/)/);
+        const regexPre = new RegExp('#/[a-z]{2}/');
+        const prelessHash = window.location.hash.replace(regexPre, '');
+        const regexInvNumber = new RegExp('([\\w-]+)?(?=/)');
+        const inventoryNumber = prelessHash.match(regexInvNumber);
 
         return inventoryNumber === null ? null : inventoryNumber[0];
     },
