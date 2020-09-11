@@ -135,9 +135,9 @@ const config = {
 
     collapseAll.self.addEventListener('change', (event) => {
         if (event.target.checked) {
-            collapseAll.self.innerHTML = 'unfold_more';
+            collapseAll.label.innerHTML = 'unfold_more';
         } else {
-            collapseAll.self.innerHTML = 'unfold_less';
+            collapseAll.label.innerHTML = 'unfold_less';
         }
     });
 
